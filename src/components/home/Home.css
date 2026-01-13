@@ -1,0 +1,138 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700;900&display=swap');
+
+.home {
+    /* O gradiente preto (rgba) vem antes da imagem para criar o efeito de sombra/leitura */
+    background-image: linear-gradient(to right, rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0.3)), url('../../assets/img/fotoFundo.png');
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed; /* Efeito parallax (opcional, fica chique) */
+    
+    height: 100vh; /* Ocupa a tela toda */
+    width: 100%;
+    
+    display: flex;
+    flex-direction: column;
+    justify-content: center; /* Centraliza verticalmente */
+    align-items: flex-start; /* Alinha o bloco à ESQUERDA (Desktop) */
+    
+    padding-left: 10%; /* Empurra o conteúdo um pouco para a direita */
+    padding-right: 5%;
+    
+    /* Compensa a altura do Header fixo para o conteúdo não ficar escondido */
+    padding-top: 80px; 
+    box-sizing: border-box;
+    font-family: 'Montserrat', sans-serif; /* Fonte robusta */
+}
+
+/* Container para limitar a largura do texto e não esticar na tela toda */
+.home-container {
+    max-width: 650px;
+    color: #fff;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    animation: fadeIn 1.5s ease-out;
+}
+
+/* O texto pequeno em cima */
+.pre-title {
+    font-size: 0.9rem;
+    letter-spacing: 4px; /* Espaçamento entre letras estilo premium */
+    text-transform: uppercase;
+    color: #b18c55; /* Dourado suave */
+    font-weight: 600;
+}
+
+/* Título Principal */
+.home-title {
+    font-size: 3.5rem;
+    line-height: 1.1;
+    font-weight: 900; /* Bem grosso igual na foto */
+    text-transform: uppercase;
+    margin: 0;
+    color: #fff;
+}
+
+/* Parágrafo descritivo */
+.home-subtitle {
+    font-size: 1.1rem;
+    line-height: 1.6;
+    color: #e0e0e0;
+    font-weight: 400;
+    max-width: 90%;
+}
+
+/* Botão de Ação */
+.home-cta {
+    display: inline-block;
+    width: fit-content;
+    margin-top: 15px;
+    padding: 15px 35px;
+    background-color: transparent;
+    color: #fff;
+    border: 2px solid #b18c55;
+    text-decoration: none;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    transition: all 0.3s ease;
+}
+
+.home-cta:hover {
+    background-color: #b18c55;
+    color: #fff;
+    transform: translateY(-3px);
+    box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+}
+
+/* Animação simples de entrada */
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+/* --- RESPONSIVIDADE --- */
+
+/* Tablets (até 1024px) */
+@media (max-width: 1024px) {
+    .home-title {
+        font-size: 2.8rem;
+    }
+}
+
+/* Celulares (até 768px) */
+@media (max-width: 768px) {
+    .home {
+        align-items: center; /* Centraliza tudo no mobile */
+        text-align: center;  /* Texto centralizado */
+        padding-left: 20px;
+        padding-right: 20px;
+        background-position: center; /* Garante que a foto fique boa */
+        /* Gradiente mais escuro no mobile para garantir leitura */
+        background-image: linear-gradient(to bottom, rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.8)), url('../../assets/img/fotoFundo.png');
+    }
+
+    .home-container {
+        align-items: center; /* Garante que o botão fique no meio */
+    }
+
+    .pre-title {
+        font-size: 0.8rem;
+        letter-spacing: 2px;
+    }
+
+    .home-title {
+        font-size: 2.2rem; /* Fonte menor para não quebrar */
+    }
+
+    .home-subtitle {
+        font-size: 1rem;
+        max-width: 100%;
+    }
+
+    .home-cta {
+        width: 100%; /* Botão largura total no mobile facilita o toque */
+        text-align: center;
+        padding: 18px;
+    }
+}

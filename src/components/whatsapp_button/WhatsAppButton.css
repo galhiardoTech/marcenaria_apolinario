@@ -1,0 +1,111 @@
+.whatsapp-float {
+    position: fixed;
+    width: 60px;
+    height: 60px;
+    bottom: 30px; /* Distância do fundo */
+    right: 30px;  /* Distância da direita */
+    background-color: #25d366; /* Verde oficial do WhatsApp */
+    color: #FFF;
+    border-radius: 50%; /* Faz a bolinha perfeita */
+    text-align: center;
+    font-size: 30px;
+    box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.2); /* Sombra para profundidade */
+    z-index: 9999; /* Garante que fique acima de tudo */
+    
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    
+    transition: all 0.3s ease;
+    
+    /* A Animação Chamativa */
+    animation: pulse-green 2s infinite;
+}
+
+/* O Ícone SVG dentro da bolinha */
+.whatsapp-icon {
+    width: 35px;
+    height: 35px;
+    fill: #ffffff;
+    margin-top: 2px; /* Ajuste fino ótico */
+}
+
+/* Efeito ao passar o mouse */
+.whatsapp-float:hover {
+    background-color: #20b857; /* Um pouco mais escuro */
+    transform: scale(1.1); /* Cresce um pouco */
+}
+
+/* Animação de Ondas (Pulse) */
+@keyframes pulse-green {
+    0% {
+        transform: scale(0.95);
+        box-shadow: 0 0 0 0 rgba(37, 211, 102, 0.7);
+    }
+    70% {
+        transform: scale(1);
+        box-shadow: 0 0 0 20px rgba(37, 211, 102, 0); /* A onda desaparece */
+    }
+    100% {
+        transform: scale(0.95);
+        box-shadow: 0 0 0 0 rgba(37, 211, 102, 0);
+    }
+}
+
+/* --- Tooltip (Balãozinho de texto) --- */
+.whatsapp-tooltip {
+    position: absolute;
+    right: 70px; /* Aparece à esquerda da bolinha */
+    top: 50%;
+    transform: translateY(-50%);
+    background-color: #fff;
+    color: #1a1a1a;
+    padding: 6px 12px;
+    border-radius: 6px;
+    font-size: 0.85rem;
+    font-weight: 700;
+    white-space: nowrap;
+    opacity: 0; /* Invisível por padrão */
+    visibility: hidden;
+    transition: opacity 0.3s;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+    font-family: 'Montserrat', sans-serif;
+}
+
+/* Setinha do balão apontando para o ícone */
+.whatsapp-tooltip::after {
+    content: "";
+    position: absolute;
+    top: 50%;
+    right: -6px;
+    margin-top: -6px;
+    border-width: 6px;
+    border-style: solid;
+    border-color: transparent transparent transparent #fff;
+}
+
+/* Mostra o texto quando passa o mouse */
+.whatsapp-float:hover .whatsapp-tooltip {
+    opacity: 1;
+    visibility: visible;
+}
+
+/* RESPONSIVIDADE */
+@media (max-width: 768px) {
+    .whatsapp-float {
+        width: 55px;
+        height: 55px;
+        bottom: 20px;
+        right: 20px;
+    }
+
+    .whatsapp-icon {
+        width: 30px;
+        height: 30px;
+    }
+    
+    /* No celular, o texto pode atrapalhar, então removemos o tooltip */
+    .whatsapp-tooltip {
+        display: none;
+    }
+}

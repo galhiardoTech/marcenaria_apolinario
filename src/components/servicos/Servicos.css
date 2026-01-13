@@ -1,0 +1,183 @@
+/* --- ESTRUTURA GERAL --- */
+.services-section {
+    padding: 100px 20px;
+    background-color: #f9f9f9;
+}
+
+.services-container {
+    max-width: 1400px;
+    margin: 0 auto;
+}
+
+/* --- CABEÇALHO --- */
+.section-header {
+    text-align: center;
+    max-width: 700px;
+    margin: 0 auto 60px auto;
+}
+
+.section-subtitle {
+    display: block;
+    color: #b18c55;
+    font-size: 0.9rem;
+    font-weight: 700;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    margin-bottom: 15px;
+}
+
+.section-title {
+    font-size: 2.5rem;
+    color: #1a1a1a;
+    font-weight: 800;
+    margin: 0 0 20px 0;
+    text-transform: uppercase;
+}
+
+.section-desc {
+    color: #666;
+    font-size: 1.1rem;
+    line-height: 1.6;
+}
+
+/* --- GRID DE CARDS --- */
+.services-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 30px;
+}
+
+/* --- O CARD --- */
+.service-card {
+    background: #fff;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+    transition: all 0.3s ease;
+    border: 1px solid transparent;
+    display: flex;
+    flex-direction: column;
+}
+
+.service-card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+    border-color: rgba(177, 140, 85, 0.3);
+}
+
+/* --- ÁREA DA IMAGEM --- */
+.card-image {
+    height: 250px;
+    width: 100%;
+    position: relative; /* Essencial para o posicionamento da logo */
+    overflow: hidden;
+}
+
+/* CORREÇÃO IMPORTANTE: 
+   Usamos a classe .main-img em vez de apenas 'img'.
+   Isso evita que o CSS afete a logo (watermark).
+*/
+.main-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.5s ease;
+    display: block;
+}
+
+.service-card:hover .main-img {
+    transform: scale(1.05);
+}
+
+/* --- MARCA D'ÁGUA (LOGO NO CANTO INFERIOR DIREITO) --- */
+.watermark-logo {
+    position: absolute;
+    bottom: 10px;  /* Distância do fundo */
+    right: 10px;   /* Distância da direita */
+    width: 40px;   /* Tamanho fixo da logo */
+    height: auto;  /* Mantém a proporção */
+    opacity: 0.6;
+    transition: opacity 0.3s ease;
+    z-index: 10;   /* Garante que fique acima da imagem principal */
+    pointer-events: none; /* O clique passa através dela */
+    
+    /* Previne distorção caso existam estilos globais */
+    object-fit: contain; 
+}
+
+.service-card:hover .watermark-logo {
+    opacity: 0.9; /* Fica mais visível ao passar o mouse */
+}
+
+/* --- TAG DE CATEGORIA --- */
+.category-tag {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    background-color: #1a1a1a;
+    color: #fff;
+    padding: 6px 14px;
+    font-size: 0.75rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    border-radius: 4px;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+    z-index: 10;
+}
+
+/* --- CONTEÚDO --- */
+.card-content {
+    padding: 30px;
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+}
+
+.card-content h3 {
+    font-size: 1.5rem;
+    color: #1a1a1a;
+    margin: 0 0 15px 0;
+    font-weight: 700;
+}
+
+.card-content p {
+    color: #666;
+    font-size: 0.95rem;
+    line-height: 1.6;
+    margin-bottom: 25px;
+    flex-grow: 1;
+}
+
+.card-link {
+    text-decoration: none;
+    color: #b18c55;
+    font-weight: 700;
+    text-transform: uppercase;
+    font-size: 0.9rem;
+    letter-spacing: 1px;
+    transition: color 0.2s;
+    align-self: flex-start;
+}
+
+.card-link:hover {
+    color: #1a1a1a;
+    letter-spacing: 2px;
+}
+
+/* --- RESPONSIVIDADE --- */
+@media (max-width: 768px) {
+    .section-title {
+        font-size: 2rem;
+    }
+    
+    .services-grid {
+        grid-template-columns: 1fr;
+        max-width: 400px;
+        margin: 0 auto;
+    }
+
+    .card-image {
+        height: 220px;
+    }
+}

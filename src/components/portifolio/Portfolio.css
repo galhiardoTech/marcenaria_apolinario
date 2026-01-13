@@ -1,0 +1,139 @@
+/* --- CONTAINER GERAL --- */
+.portfolio-section {
+    padding: 100px 20px;
+    background-color: #ffffff;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+.portfolio-container {
+    max-width: 1400px;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+/* --- CABEÇALHO --- */
+.portfolio-header {
+    text-align: center;
+    margin-bottom: 70px;
+}
+
+.portfolio-subtitle {
+    font-size: 0.9rem;
+    color: #b18c55; /* Dourado */
+    font-weight: 700;
+    letter-spacing: 4px;
+    text-transform: uppercase;
+    display: block;
+    margin-bottom: 15px;
+}
+
+.portfolio-title {
+    font-size: 3rem;
+    color: #1a1a1a;
+    font-weight: 900;
+    text-transform: uppercase;
+    margin: 0;
+    line-height: 1.1;
+}
+
+/* Linha decorativa dourada */
+.portfolio-divider {
+    width: 80px;
+    height: 4px;
+    background-color: #b18c55;
+    margin: 25px auto 0;
+    border-radius: 2px;
+}
+
+/* --- GRID INTELIGENTE (RESPONSIVO) --- */
+.portfolio-grid {
+    display: grid;
+    /* Lógica: Cria colunas de no mínimo 320px. 
+       Se houver espaço, elas crescem (1fr). 
+       Se não, elas quebram linha. */
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+    gap: 30px;
+    width: 100%;
+}
+
+/* --- ITEM DO PORTFOLIO --- */
+.portfolio-item {
+    position: relative;
+    border-radius: 0px; /* Deixei quadrado para ficar mais moderno/marcenaria */
+    overflow: hidden;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.05);
+    cursor: pointer;
+}
+
+.image-wrapper {
+    position: relative;
+    width: 100%;
+    height: 400px; /* Altura fixa para alinhar todas as fotos */
+    overflow: hidden;
+}
+
+.image-wrapper img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+/* Zoom suave ao passar o mouse */
+.portfolio-item:hover img {
+    transform: scale(1.1);
+}
+
+/* --- OVERLAY (TEXTO SOBRE A FOTO) --- */
+.overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(20, 20, 20, 0.7); /* Fundo escuro transparente */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    opacity: 0;
+    transition: all 0.4s ease;
+    backdrop-filter: blur(2px); /* Efeito de vidro embaçado */
+}
+
+.overlay h3 {
+    color: #fff;
+    font-size: 1.4rem;
+    text-transform: uppercase;
+    font-weight: 600;
+    letter-spacing: 2px;
+    text-align: center;
+    transform: translateY(20px); /* Texto vem de baixo */
+    transition: transform 0.4s ease;
+}
+
+/* Animação de entrada do overlay */
+.portfolio-item:hover .overlay {
+    opacity: 1;
+}
+
+.portfolio-item:hover .overlay h3 {
+    transform: translateY(0);
+}
+
+/* --- RESPONSIVIDADE --- */
+@media (max-width: 768px) {
+    .portfolio-section {
+        padding: 60px 20px;
+    }
+
+    .portfolio-title {
+        font-size: 2.2rem;
+    }
+
+    .image-wrapper {
+        height: 300px; /* Fotos menores no celular */
+    }
+}

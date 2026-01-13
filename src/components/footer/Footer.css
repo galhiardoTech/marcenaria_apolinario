@@ -1,0 +1,243 @@
+/* --- CONTAINER GERAL --- */
+.footer {
+    background-color: #151515;
+    color: #b0b0b0;
+    padding-top: 80px;
+    font-family: 'Montserrat', sans-serif;
+    position: relative;
+    border-top: 4px solid #b18c55;
+}
+
+.footer-content {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+
+    /* FIX: Isso impede que as colunas estiquem até a altura da maior */
+    align-items: flex-start;
+
+    padding: 0 32px 60px 32px;
+    gap: 40px;
+}
+
+/* --- SEÇÕES DO FOOTER (COLUNAS) --- */
+.footer-section {
+    flex: 1;
+    min-width: 250px;
+    /* Garante que a coluna ocupe apenas o espaço necessário */
+    display: flex;
+    flex-direction: column;
+    border-radius: 20px;
+
+}
+
+/* Coluna da Logo */
+.brand-section {
+    flex: 1.2;
+    max-width: 400px;
+    /* Limita a largura para o texto não ficar muito comprido */
+}
+
+.footer-logo {
+    /* Limita a altura da logo para não empurrar tudo para baixo */
+    height: auto;
+    max-height: 80px;
+    width: auto;
+    margin-bottom: 20px;
+    opacity: 0.95;
+    align-self: flex-start;
+    /* Garante que a logo fique na esquerda */
+}
+
+.footer-text {
+    line-height: 1.6;
+    font-size: 0.9rem;
+    color: #cecece;
+    margin: 0;
+    /* Remove margens extras que causam altura desnecessária */
+}
+
+/* Títulos das Colunas */
+.footer-title {
+    color: #fdfaf3;
+    font-size: 1.1rem;
+    text-transform: uppercase;
+    font-weight: 700;
+    margin-bottom: 25px;
+    /* Espaço controlado abaixo do título */
+    margin-top: 0;
+    /* Remove espaço acima */
+    position: relative;
+    letter-spacing: 2px;
+    display: inline-block;
+    width: fit-content;
+    /* O título ocupa só o tamanho do texto */
+}
+
+.footer-title::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    bottom: -8px;
+    width: 30px;
+    height: 2px;
+    background-color: #b18c55;
+    transition: width 0.3s ease;
+}
+
+.footer-section:hover .footer-title::after {
+    width: 100%;
+}
+
+/* --- CONTATO --- */
+.contact-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.contact-list li {
+    margin-bottom: 15px;
+    /* Reduzi um pouco o espaçamento vertical */
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    font-size: 0.9rem;
+    color: #e0e0e0;
+}
+
+.contact-list .icon {
+    font-size: 1.1rem;
+    min-width: 20px;
+    /* Alinha os textos mesmo se o ícone for pequeno */
+    text-align: center;
+}
+
+/* Botão WhatsApp */
+.whatsapp-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    margin-top: 20px;
+    padding: 12px 24px;
+    background: linear-gradient(135deg, #25D366, #128C7E);
+    color: #fff;
+    font-weight: 700;
+    font-size: 0.85rem;
+    text-transform: uppercase;
+    text-decoration: none;
+    border-radius: 50px;
+    transition: all 0.3s ease;
+    width: fit-content;
+    /* O botão não estica a div */
+}
+
+.whatsapp-btn:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 25px rgba(37, 211, 102, 0.2);
+}
+
+.whatsapp-btn .icon {
+    filter: brightness(0) invert(1);
+}
+
+/* --- REDES SOCIAIS --- */
+.social-icons {
+    display: flex;
+    gap: 10px;
+}
+
+.social-link {
+    width: 40px;
+    height: 40px;
+    background-color: #2a2a2a;
+    color: #fff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    text-decoration: none;
+    font-size: 0.8rem;
+    font-weight: 700;
+    transition: all 0.3s ease;
+    border: 1px solid #333;
+}
+
+.social-link:hover {
+    background-color: #b18c55;
+    border-color: #b18c55;
+    transform: translateY(-3px);
+}
+
+/* --- RODAPÉ INFERIOR --- */
+.footer-bottom {
+    background-color: #0f0f0f;
+    padding: 20px 0;
+    border-top: 1px solid #222;
+    margin-top: 20px;
+    /* Garante separação do conteúdo */
+}
+
+.bottom-content {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 32px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 0.75rem;
+    color: #666;
+}
+
+.developer {
+    color: #b18c55;
+}
+
+.instagram-img{
+    width: 24px;
+    height: 24px;
+}
+
+/* --- RESPONSIVIDADE --- */
+@media (max-width: 900px) {
+    .footer-content {
+        flex-direction: column;
+        align-items: center;
+        /* No mobile, centraliza tudo */
+        gap: 50px;
+    }
+
+    .footer-section {
+        width: 100%;
+        align-items: center;
+        /* Centraliza o conteúdo dentro da coluna */
+        text-align: center;
+    }
+
+    .brand-section {
+        max-width: 100%;
+    }
+
+    .footer-logo {
+        align-self: center;
+        /* Centraliza a logo no mobile */
+    }
+
+    .footer-title::after {
+        left: 50%;
+        transform: translateX(-50%);
+    }
+
+    .contact-list li {
+        justify-content: center;
+    }
+
+    .bottom-content {
+        flex-direction: column;
+        gap: 10px;
+        text-align: center;
+    }
+}

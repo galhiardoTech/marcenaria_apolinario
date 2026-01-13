@@ -1,0 +1,48 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Roboto', sans-serif;
+  background-color: #ffffff;
+  color: #333333;
+  overflow-x: hidden;
+
+  /* --- DESABILITAR SELEÇÃO DE TEXTO NO SITE TODO --- */
+  -webkit-user-select: none; /* Safari / Chrome */
+  -moz-user-select: none;    /* Firefox */
+  -ms-user-select: none;     /* Internet Explorer/Edge */
+  user-select: none;         /* Padrão moderno */
+}
+
+html, body, #root {
+  height: 100%;
+  overflow-x: hidden;
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+  /* Evita que o link seja arrastável */
+  -webkit-user-drag: none; 
+}
+
+/* --- CONFIGURAÇÃO ESPECÍFICA PARA IMAGENS --- */
+img {
+  /* Impede que a imagem seja arrastada */
+  -webkit-user-drag: none;
+  -khtml-user-drag: none;
+  -moz-user-drag: none;
+  -o-user-drag: none;
+  
+  /* Impede a seleção da imagem (ficar azul) */
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+
+  /* (Opcional) Impede clicar com botão direito ou interagir com ponteiro */
+  /* pointer-events: none; */ 
+}

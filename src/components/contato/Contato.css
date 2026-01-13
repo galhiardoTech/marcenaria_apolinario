@@ -1,0 +1,176 @@
+/* --- SEÇÃO GERAL --- */
+.contact-section {
+    background-color: #554a4a; /* Fundo escuro para contraste elegante */
+    padding: 100px 20px;
+    position: relative;
+    color: #fff;
+    font-family: 'Montserrat', sans-serif;
+    display: flex;
+}
+
+/* Elemento decorativo de fundo (opcional) */
+.contact-section::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 30%;
+    height: 100%;
+    opacity: 0.1;
+    z-index: 0;
+}
+
+.contact-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    position: relative;
+    z-index: 1;
+    gap: 60px;
+}
+
+/* --- LADO ESQUERDO (INFO) --- */
+.contact-info {
+    flex: 1;
+    max-width: 500px;
+}
+
+.contact-subtitle {
+    color: #b18c55;
+    font-weight: 700;
+    letter-spacing: 3px;
+    font-size: 0.9rem;
+    display: block;
+    margin-bottom: 15px;
+}
+
+.contact-title {
+    font-size: 3rem;
+    line-height: 1.1;
+    margin: 0 0 25px 0;
+    font-weight: 800;
+}
+
+.contact-desc {
+    color: #cccccc;
+    font-size: 1.1rem;
+    line-height: 1.6;
+    margin-bottom: 40px;
+}
+
+/* Detalhes com Ícones */
+.contact-details {
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+}
+
+.detail-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 20px;
+}
+
+.detail-item .icon {
+    font-size: 1.5rem;
+    background: rgba(177, 140, 85, 0.2); /* Fundo dourado transparente */
+    width: 50px;
+    height: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    color: #b18c55;
+}
+
+.detail-item h4 {
+    margin: 0 0 5px 0;
+    font-size: 1.1rem;
+    color: #fff;
+}
+
+.detail-item p {
+    margin: 0;
+    color: #aaa;
+    font-size: 0.95rem;
+}
+
+/* --- LADO DIREITO (CTA WhatsApp) --- */
+.contact-cta-wrapper {
+    flex: 1;
+    max-width: 500px;
+}
+
+.contact-cta-card {
+    background: linear-gradient(135deg, #b18c55, #8d5e2f);
+    padding: 36px;
+    border-radius: 12px;
+    box-shadow: 0 20px 50px rgba(0,0,0,0.3);
+    color: #fdfaf3;
+}
+
+.contact-cta-card h3 {
+    margin: 0 0 12px;
+    font-size: 1.8rem;
+    font-weight: 800;
+}
+
+.contact-cta-card p {
+    margin: 0 0 18px;
+    line-height: 1.6;
+    color: rgba(253, 250, 243, 0.92);
+}
+
+.whatsapp-btn {
+    display: inline-block;
+    background: #25d366;
+    color: #0c2615;
+    padding: 14px 22px;
+    border-radius: 8px;
+    font-weight: 800;
+    text-decoration: none;
+    letter-spacing: 0.4px;
+    box-shadow: 0 12px 24px rgba(0,0,0,0.25);
+    transition: transform 0.2s ease, box-shadow 0.2s ease, filter 0.2s ease;
+}
+
+.whatsapp-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 14px 28px rgba(0,0,0,0.3);
+    filter: brightness(1.05);
+}
+
+.cta-note {
+    margin-top: 10px;
+    font-size: 0.9rem;
+    color: rgba(253, 250, 243, 0.85);
+}
+
+/* --- RESPONSIVIDADE --- */
+@media (max-width: 900px) {
+    .contact-container {
+        flex-direction: column; /* Empilha no celular */
+        gap: 50px;
+    }
+
+    .contact-info, 
+    .contact-cta-wrapper {
+        max-width: 100%;
+        width: 100%;
+    }
+
+    .contact-title {
+        font-size: 2.2rem;
+    }
+
+    /* Remove a faixa lateral no mobile */
+    .contact-section::before {
+        display: none;
+    }
+
+    .contact-cta-card {
+        padding: 28px 20px;
+    }
+}

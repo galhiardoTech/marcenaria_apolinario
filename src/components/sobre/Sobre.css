@@ -1,0 +1,128 @@
+/* Container Principal - Divide a tela em 2 */
+.sobre-section {
+    display: flex;
+    width: 100%;
+    min-height: 80vh; /* Altura considerável para impor presença */
+    background-color: #fff;
+    overflow: hidden;
+}
+
+/* --- LADO DO TEXTO (ESQUERDA) --- */
+.sobre-content {
+    flex: 1; /* Ocupa 50% */
+    display: flex;
+    flex-direction: column;
+    justify-content: center; /* Centraliza verticalmente */
+    align-items: flex-start; /* Alinha texto à esquerda */
+    padding: 80px 8%; /* Espaçamento generoso nas laterais */
+    box-sizing: border-box;
+}
+
+/* Subtítulo (Estilo "TENDÊNCIA" da foto) */
+.sobre-subtitle {
+    font-size: 0.85rem;
+    color: #4b4b4b;
+    text-transform: uppercase;
+    letter-spacing: 3px; /* Espaçamento chique entre letras */
+    font-weight: 600;
+    margin-bottom: 20px;
+    border-left: 3px solid #b18c55; /* Detalhe sutil dourado ao lado */
+    padding-left: 10px;
+}
+
+/* Título (Estilo "AÇO INOX..." da foto) */
+.sobre-title {
+    font-size: 2.8rem;
+    color: #1a1a1a;
+    font-weight: 400; /* Letra mais fina fica mais elegante aqui */
+    text-transform: uppercase;
+    line-height: 1.2;
+    margin: 0 0 30px 0;
+    font-family: 'Montserrat', sans-serif; /* Certifique-se de importar essa fonte */
+}
+
+/* Parágrafos */
+.sobre-text {
+    font-size: 1rem;
+    line-height: 1.8;
+    color: #666;
+    margin-bottom: 20px;
+    max-width: 500px; /* Impede que o texto fique muito largo e cansativo */
+}
+
+/* Botão (Estilo "CONTINUAR LENDO") */
+.sobre-btn {
+    display: inline-block;
+    margin-top: 20px;
+    padding: 15px 35px;
+    background-color: #b18c55; /* O Dourado fosco da sua paleta */
+    color: #fff;
+    font-weight: 700;
+    font-size: 0.85rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    text-decoration: none;
+    border-radius: 4px; /* Levemente arredondado, quase quadrado */
+    transition: all 0.3s ease;
+}
+
+.sobre-btn:hover {
+    background-color: #967035;
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(177, 140, 85, 0.3);
+}
+
+/* --- LADO DA IMAGEM (DIREITA) --- */
+.sobre-image-wrapper {
+    flex: 1; /* Ocupa os outros 50% */
+    height: auto;
+    position: relative;
+}
+
+.sobre-image-wrapper img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover; /* Garante que a imagem preencha tudo sem distorcer */
+    display: block;
+}
+
+/* --- RESPONSIVIDADE --- */
+@media (max-width: 1024px) {
+    .sobre-title {
+        font-size: 2.2rem;
+    }
+}
+
+@media (max-width: 900px) {
+    /* No Tablet/Celular, empilha um sobre o outro */
+    .sobre-section {
+        flex-direction: column-reverse; /* Imagem em cima, texto em baixo (ou vice-versa) */
+        height: auto;
+    }
+
+    .sobre-image-wrapper {
+        height: 400px; /* Altura fixa para a imagem no mobile */
+        width: 100%;
+    }
+
+    .sobre-content {
+        padding: 60px 30px;
+        align-items: center; /* Centraliza tudo no mobile */
+        text-align: center;
+    }
+
+    .sobre-subtitle {
+        border-left: none;
+        border-bottom: 3px solid #b18c55; /* Muda o detalhe para baixo no mobile */
+        padding-left: 0;
+        padding-bottom: 5px;
+    }
+
+    .sobre-title {
+        font-size: 2rem;
+    }
+
+    .sobre-text {
+        text-align: center;
+    }
+}
