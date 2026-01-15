@@ -9,28 +9,26 @@ import logoCinza from '../../assets/img/logos/logoCinza.svg';
 
 function ServicosPage() {
     const [selectedCategory, setSelectedCategory] = useState('TODOS');
+    // O scroll para o topo é controlado centralmente pelo ScrollToTop no App.jsx
 
-    // Filtrar serviços por categoria
     const filteredServices = selectedCategory === 'TODOS'
         ? servicesData
         : servicesData.filter(service => service.category === selectedCategory);
 
-    // Obter categorias únicas
     const categories = ['TODOS', ...new Set(servicesData.map(s => s.category))];
 
     return (
         <div className="servicos-page-wrapper">
             <Header />
             <div className="servicos-page">
-            {/* Header da Página */}
-            <section className="servicos-header">
+            
+            <section className="servicos-header" id="servicos-header">
                 <div className="header-content">
                     <h1>Nossos Serviços</h1>
                     <p>Soluções em marcenaria para todo tipo de projeto. Do residencial ao corporativo, temos expertise para realizar seu sonho.</p>
                 </div>
             </section>
 
-            {/* Filtro por Categoria */}
             <section className="filter-section">
                 <div className="filter-container">
                     <h3>Filtrar por Categoria</h3>
@@ -48,7 +46,6 @@ function ServicosPage() {
                 </div>
             </section>
 
-            {/* Grid de Serviços */}
             <section className="servicos-grid-section">
                 <div className="servicos-grid-container">
                     <div className={`services-grid ${filteredServices.length === 1 ? 'single-item' : ''}`}>
@@ -83,7 +80,6 @@ function ServicosPage() {
                 </div>
             </section>
 
-            {/* CTA Section */}
             <section className="cta-section">
                 <div className="cta-content">
                     <h2>Pronto para começar seu projeto?</h2>

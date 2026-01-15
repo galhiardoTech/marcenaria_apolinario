@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
+import React, { useState, useEffect } from 'react';
+import { Link, useLocation } from 'react-router-dom';
 import './Header.css';
 
 import logoColorida from '../../assets/img/logos/logoColorida.svg';
@@ -7,34 +7,58 @@ import logoColorida from '../../assets/img/logos/logoColorida.svg';
 function Header() {
     const [activeLink, setActiveLink] = useState('#home');
     const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+    const location = useLocation();
 
-    // Função para links normais
-    const handleLinkClick = (link) => {
-        setActiveLink(link);
-        setIsMobileMenuOpen(false);
-    };
+    // Lógica visual para saber qual link está ativo enquanto rola a página
+    useEffect(() => {
+        const handleScroll = () => {
+            const sections = ['#home', '#sobre', '#solucoes', '#contato'];
+            const scrollPosition = window.scrollY + 200;
 
-    // Função exclusiva para a Logo (Vai para Home e sobe para o topo)
-    const handleLogoClick = () => {
-        setActiveLink('#home');
+            for (let i = sections.length - 1; i >= 0; i--) {
+                const sectionId = sections[i].replace('#', '');
+                const section = document.getElementById(sectionId);
+                
+                if (section) {
+                    const sectionTop = section.offsetTop;
+                    const sectionHeight = section.offsetHeight;
+                    
+                    if (scrollPosition >= sectionTop && scrollPosition < sectionTop + sectionHeight) {
+                        setActiveLink(sections[i]);
+                        break;
+                    }
+                }
+            }
+            if (window.scrollY < 100) setActiveLink('#home');
+        };
+
+        window.addEventListener('scroll', handleScroll);
+        handleScroll();
+        return () => window.removeEventListener('scroll', handleScroll);
+    }, []);
+
+    useEffect(() => {
+        if (location.hash) setActiveLink(location.hash);
+    }, [location.hash]);
+
+    // Função UNIFICADA para fechar o menu apenas
+    const closeMenu = () => {
         setIsMobileMenuOpen(false);
-        window.scrollTo({ top: 0, behavior: 'smooth' });
+        // NÃO fazemos scroll aqui. O App.js detecta a mudança de rota e faz o scroll.
     };
 
     return (
         <header className="header">
             <div className="header-inner">
-                {/* Logo com função de ir para o topo */}
                 <Link
                     className="logo"
                     to="/#home"
-                    onClick={() => handleLogoClick('#home')}
+                    onClick={closeMenu}
                     aria-label="Marcenaria Apolinário"
                 >
                     <img src={logoColorida} alt="Logo Marcenaria Apolinário" />
                 </Link>
 
-                {/* Botão Hambúrguer */}
                 <button
                     className={`hamburger ${isMobileMenuOpen ? 'active' : ''}`}
                     onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
@@ -51,7 +75,7 @@ function Header() {
                             <Link
                                 className={`nav-link ${activeLink === '#home' ? 'active' : ''}`}
                                 to="/#home"
-                                onClick={() => handleLinkClick('#home')}
+                                onClick={closeMenu}
                             >
                                 Home
                             </Link>
@@ -60,46 +84,46 @@ function Header() {
                             <Link
                                 className={`nav-link ${activeLink === '#sobre' ? 'active' : ''}`}
                                 to="/#sobre"
-                                onClick={() => handleLinkClick('#sobre')}
+                                onClick={closeMenu}
                             >
                                 Sobre Nós
                             </Link>
                         </li>
-
                         <li>
                             <Link
                                 className={`nav-link ${activeLink === '#solucoes' ? 'active' : ''}`}
                                 to="/#solucoes"
-                                onClick={() => handleLinkClick('#solucoes')}
+                                onClick={closeMenu}
                             >
                                 Soluções
                             </Link>
                         </li>
-
-
                         <li>
                             <Link
                                 className={`nav-link ${activeLink === '#contato' ? 'active' : ''}`}
                                 to="/#contato"
-                                onClick={() => handleLinkClick('#contato')}
+                                onClick={closeMenu}
                             >
                                 Contato
                             </Link>
                         </li>
                     </ul>
 
-                    {/* Botão CTA Mobile */}
+                    {/* Botões CTA */}
                     <Link
-                        to="/servicos"
+                        to="/servicos#servicos-header"
                         className="cta mobile-cta"
-                        onClick={() => setIsMobileMenuOpen(false)}
+                        onClick={closeMenu}
                     >
                         + Serviços
                     </Link>
                 </nav>
 
-                {/* Botão CTA Desktop */}
-                <Link to="/servicos" className="cta desktop-cta">
+                <Link 
+                    to="/servicos#servicos-header" 
+                    className="cta desktop-cta"
+                    onClick={closeMenu}
+                >
                     + Serviços
                 </Link>
             </div>
