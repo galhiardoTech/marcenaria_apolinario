@@ -20,12 +20,12 @@ function ServicosPage() {
     return (
         <div className="servicos-page-wrapper">
             <Header />
-            <div className="servicos-page">
+            <main className="servicos-page">
             
             <section className="servicos-header" id="servicos-header">
                 <div className="header-content">
-                    <h1>Nossos Serviços</h1>
-                    <p>Soluções em marcenaria para todo tipo de projeto. Do residencial ao corporativo, temos expertise para realizar seu sonho.</p>
+                    <h1>Móveis planejados em São Paulo</h1>
+                    <p>Marcenaria sob medida para cozinhas, quartos, salas e banheiros. Conheça as soluções da Marcenaria Apolinário, na Chácara Belenzinho.</p>
                 </div>
             </section>
 
@@ -52,9 +52,9 @@ function ServicosPage() {
                         {filteredServices.map((service) => (
                             <article key={service.id} className="service-card-full">
                                 <div className="card-image-container">
-                                    <img src={service.img} alt={service.title} className="card-image" />
+                                    <img src={service.img} alt={service.title} className="card-image" loading="lazy" decoding="async" />
                                     <div className="category-badge">{service.category}</div>
-                                    <img src={logoCinza} alt="Marcenaria Apolinário" className="watermark-logo" />
+                                    <img src={logoCinza} alt="Marcenaria Apolinário" className="watermark-logo" loading="lazy" decoding="async" />
                                 </div>
 
                                 <div className="card-content-full">
@@ -89,7 +89,7 @@ function ServicosPage() {
                     </a>
                 </div>
             </section>
-            </div>
+            </main>
             <Footer />
             <WhatsAppButton />
         </div>

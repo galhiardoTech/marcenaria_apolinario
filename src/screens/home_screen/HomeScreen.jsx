@@ -2,7 +2,6 @@ import React from 'react'
 import './HomeScreen.css'
 import Header from '../../components/header/Header'
 import Home from '../../components/home/Home'
-import Portfolio from '../../components/portifolio/Portfolio'
 import Footer from '../../components/footer/Footer'
 import Sobre from '../../components/sobre/Sobre'
 import Servicos from '../../components/servicos/Servicos'
@@ -13,11 +12,12 @@ function HomeScreen() {
   return (
     <div>
         <Header />
+        <main>
         <Home />
-        {/* <Portfolio /> */}
         <Sobre />
         <Servicos />
         <Contato />
+        </main>
         <Footer />
         <WhatsAppButton />
 

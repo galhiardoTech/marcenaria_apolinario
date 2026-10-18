@@ -9,7 +9,7 @@ function Footer() {
                 
                 {/* Coluna 1: Marca e Sobre */}
                 <div className="footer-section brand-section">
-                    <img src={logoCinza} alt="Marcenaria Apolinário" className="footer-logo" />
+                    <img src={logoCinza} alt="Marcenaria Apolinário" className="footer-logo" loading="lazy" decoding="async" />
                     <p className="footer-text">
                         Transformando sonhos em móveis planejados de alto padrão. 
                         Qualidade, durabilidade e design exclusivo para o seu lar.
@@ -22,7 +22,7 @@ function Footer() {
                     <ul className="contact-list">
                         <li>
                             <i className="bi bi-geo-alt-fill icon" aria-hidden="true"></i>
-                            <span>Rua Exemplo, 123 - São Paulo, SP</span>
+                            <span>Rua Lessig, 589 - Chácara Belenzinho</span>
                         </li>
                         <li>
                             <i className="bi bi-telephone-fill icon" aria-hidden="true"></i>
@@ -49,7 +49,7 @@ function Footer() {
             <div className="footer-bottom">
                 <div className="bottom-content">
                     <p>&copy; {new Date().getFullYear()} Marcenaria Apolinário.</p>
-                    <p className="developer">Desenvolvido com excelência.</p>
+                    <p className="developer">Desenvolvido por GalhiardoTech</p>
                 </div>
             </div>
         </footer>

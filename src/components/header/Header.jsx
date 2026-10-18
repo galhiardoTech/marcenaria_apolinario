@@ -35,11 +35,7 @@ function Header() {
         window.addEventListener('scroll', handleScroll);
         handleScroll();
         return () => window.removeEventListener('scroll', handleScroll);
-    }, []);
-
-    useEffect(() => {
-        if (location.hash) setActiveLink(location.hash);
-    }, [location.hash]);
+    }, [location.hash, location.pathname]);
 
     // Função UNIFICADA para fechar o menu apenas
     const closeMenu = () => {

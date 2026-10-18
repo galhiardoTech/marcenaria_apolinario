@@ -3,9 +3,11 @@ import React, { useLayoutEffect } from 'react';
 import { BrowserRouter as Router, Routes, Route, useLocation } from 'react-router-dom';
 import HomeScreen from './screens/home_screen/HomeScreen.jsx';
 import ServicosPage from './screens/servicos_page/ServicosPage.jsx';
+import Seo from './components/seo/Seo.jsx';
+import { Link } from 'react-router-dom';
 
 // Desativa a restauração automática de scroll do navegador
-if ('scrollRestoration' in window.history) {
+if (typeof window !== 'undefined' && 'scrollRestoration' in window.history) {
   window.history.scrollRestoration = 'manual';
 }
 
@@ -47,14 +49,30 @@ function ScrollToTop() {
   return null;
 }
 
-function App() {
+export function AppContent() {
   return (
-    <Router>
+    <>
+      <Seo />
       <ScrollToTop />
       <Routes>
         <Route path="/" element={<HomeScreen />} />
         <Route path="/servicos" element={<ServicosPage />} />
+        <Route path="*" element={
+          <main style={{ padding: '80px 24px', textAlign: 'center' }}>
+            <h1>Página não encontrada</h1>
+            <p>Conheça os móveis planejados da Marcenaria Apolinário.</p>
+            <Link to="/">Voltar à página inicial</Link>
+          </main>
+        } />
       </Routes>
+    </>
+  );
+}
+
+function App() {
+  return (
+    <Router>
+      <AppContent />
     </Router>
   );
 }

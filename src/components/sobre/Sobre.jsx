@@ -18,7 +18,8 @@ function Sobre() {
                 </p>
 
                 <p className="sobre-text">
-                    Cada projeto é único, pensado para alinhar estética, durabilidade e a personalidade de quem vive no ambiente.
+                    Na Chácara Belenzinho, em São Paulo, criamos móveis sob medida para alinhar
+                    estética, durabilidade e a personalidade de quem vive no ambiente.
                 </p>
 
                 <a href="#contato" className="sobre-btn">
@@ -28,7 +29,7 @@ function Sobre() {
 
             {/* Lado Direito: Imagem */}
             <div className="sobre-image-wrapper">
-                <img src={fotoSobre} alt="Detalhe de acabamento Marcenaria Apolinário" />
+                <img src={fotoSobre} alt="Detalhe de acabamento Marcenaria Apolinário" loading="lazy" decoding="async" />
             </div>
         </section>
     );

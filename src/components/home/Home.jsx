@@ -11,8 +11,9 @@ function Home() {
                 <h1 className="home-title">MARCENARIA APOLINÁRIO</h1>
                 
                 <p className="home-subtitle">
-                    Transformando madeira em arte. Projetos exclusivos que unem 
-                    funcionalidade e design para o seu ambiente.
+                    Móveis planejados e marcenaria sob medida em São Paulo.
+                    Projetos exclusivos para cozinhas, quartos, salas e banheiros,
+                    com a Marcenaria Apolinário na Chácara Belenzinho.
                 </p>
                 
                 <a className="home-cta" href="#contato">Solicite um orçamento</a>

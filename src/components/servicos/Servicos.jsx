@@ -3,6 +3,7 @@ import './Servicos.css';
 import { servicesData } from '../../data/servicesData';
 import { getServiceWhatsAppUrl } from '../../data/whatsapp';
 import logoCinza from '../../assets/img/logos/logoCinza.svg';
+import { Link } from 'react-router-dom';
 
 function Servicos() {
     // Lógica para filtrar apenas 1 serviço por categoria para exibição
@@ -17,7 +18,7 @@ function Servicos() {
                 
                 <div className="section-header">
                     <span className="section-subtitle">O QUE FAZEMOS</span>
-                    <h2 className="section-title">SOLUÇÕES EM MARCENARIA</h2>
+                    <h2 className="section-title">MÓVEIS PLANEJADOS SOB MEDIDA</h2>
                     <p className="section-desc">
                         Do projeto 3D à instalação final, cuidamos de cada etapa para garantir a excelência.
                     </p>
@@ -32,6 +33,8 @@ function Servicos() {
                                     src={service.img} 
                                     alt={service.title} 
                                     className="main-img" 
+                                    loading="lazy"
+                                    decoding="async"
                                 />
                                 
                                 <div className="category-tag">{service.category}</div>
@@ -41,6 +44,8 @@ function Servicos() {
                                     src={logoCinza} 
                                     alt="Marcenaria Apolinário" 
                                     className="watermark-logo" 
+                                    loading="lazy"
+                                    decoding="async"
                                 />
                             </div>
                             
@@ -53,6 +58,9 @@ function Servicos() {
                     ))}
                 </div>
 
+                <p className="section-desc">
+                    <Link to="/servicos">Conheça todos os serviços de marcenaria e móveis planejados</Link>
+                </p>
             </div>
         </section>
     );
