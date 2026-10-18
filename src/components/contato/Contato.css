@@ -174,3 +174,11 @@
         padding: 28px 20px;
     }
 }
+.contact-details a {
+    color: inherit;
+    text-decoration: none;
+}
+
+.contact-details a:hover {
+    text-decoration: underline;
+}

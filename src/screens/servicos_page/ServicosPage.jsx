@@ -1,10 +1,10 @@
 import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
 import './ServicosPage.css';
 import Header from '../../components/header/Header';
 import Footer from '../../components/footer/Footer';
 import WhatsAppButton from '../../components/whatsapp_button/WhatsAppButton';
 import { servicesData } from '../../data/servicesData';
+import { getServiceWhatsAppUrl } from '../../data/whatsapp';
 import logoCinza from '../../assets/img/logos/logoCinza.svg';
 
 function ServicosPage() {
@@ -70,9 +70,9 @@ function ServicosPage() {
                                         ))}
                                     </div>
 
-                                    <Link to="/#contato" className="cta-link">
+                                    <a href={getServiceWhatsAppUrl(service)} className="cta-link" target="_blank" rel="noopener noreferrer">
                                         Solicitar Orçamento →
-                                    </Link>
+                                    </a>
                                 </div>
                             </article>
                         ))}
@@ -84,9 +84,9 @@ function ServicosPage() {
                 <div className="cta-content">
                     <h2>Pronto para começar seu projeto?</h2>
                     <p>Entre em contato conosco e transforme seus espaços em obras de arte.</p>
-                    <Link to="/#contato" className="cta-button-large">
+                    <a href={getServiceWhatsAppUrl()} className="cta-button-large" target="_blank" rel="noopener noreferrer">
                         Solicitar Orçamento Agora
-                    </Link>
+                    </a>
                 </div>
             </section>
             </div>

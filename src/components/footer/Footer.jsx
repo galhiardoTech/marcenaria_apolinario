@@ -21,20 +21,16 @@ function Footer() {
                     <h3 className="footer-title">Fale Conosco</h3>
                     <ul className="contact-list">
                         <li>
-                            <span className="icon">📍</span> 
+                            <i className="bi bi-geo-alt-fill icon" aria-hidden="true"></i>
                             <span>Rua Exemplo, 123 - São Paulo, SP</span>
                         </li>
                         <li>
-                            <span className="icon">📞</span> 
-                            <span>(11) 97108-2868</span>
-                        </li>
-                        <li>
-                            <span className="icon">✉️</span> 
-                            <span>contato@marcenariaapolinario.com.br</span>
+                            <i className="bi bi-telephone-fill icon" aria-hidden="true"></i>
+                            <a href="tel:+5511971082868">(11) 97108-2868</a>
                         </li>
                     </ul>
                     <a href="https://wa.me/5511971082868" className="whatsapp-btn" target="_blank" rel="noopener noreferrer">
-                        <span className="icon">💬</span> Chamar no WhatsApp
+                        <i className="bi bi-whatsapp icon" aria-hidden="true"></i> Chamar no WhatsApp
                     </a>
                 </div>
 
@@ -42,8 +38,8 @@ function Footer() {
                 <div className="footer-section social-section">
                     <h3 className="footer-title">Siga-nos</h3>
                     <div className="social-icons">
-                        <a href="https://www.instagram.com/apolinariomoveisplanejado?utm_source=ig_web_button_share_sheet&igsh=ZDNlZDc0MzIxNw==" aria-label="Instagram" className="social-link" target="_blank" rel="noopener noreferrer">
-                            <img className='instagram-img' src="../../src/assets/img/instagram_icon.svg" alt="Instagram" />
+                        <a href="https://www.instagram.com/apolinariomoveisplanejado/" aria-label="Instagram" className="social-link" target="_blank" rel="noopener noreferrer">
+                            <i className="bi bi-instagram" aria-hidden="true"></i>
                         </a>
                     </div>
                 </div>

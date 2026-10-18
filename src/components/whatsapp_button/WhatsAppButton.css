@@ -26,7 +26,9 @@
 .whatsapp-icon {
     width: 35px;
     height: 35px;
-    fill: #ffffff;
+    color: #ffffff;
+    font-size: 35px;
+    line-height: 1;
     margin-top: 2px; /* Ajuste fino ótico */
 }
 
@@ -102,6 +104,7 @@
     .whatsapp-icon {
         width: 30px;
         height: 30px;
+        font-size: 30px;
     }
     
     /* No celular, o texto pode atrapalhar, então removemos o tooltip */

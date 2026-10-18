@@ -18,7 +18,7 @@ function Contato() {
 
                     <div className="contact-details">
                         <div className="detail-item">
-                            <span className="icon">📍</span>
+                            <i className="bi bi-geo-alt-fill icon" aria-hidden="true"></i>
                             <div>
                                 <h4>Localização</h4>
                                 <p>Av. das Indústrias, 100 - São Paulo, SP</p>
@@ -26,18 +26,10 @@ function Contato() {
                         </div>
                         
                         <div className="detail-item">
-                            <span className="icon">📞</span>
+                            <i className="bi bi-telephone-fill icon" aria-hidden="true"></i>
                             <div>
                                 <h4>Telefone / WhatsApp</h4>
-                                <p>(11) 99999-9999</p>
-                            </div>
-                        </div>
-
-                        <div className="detail-item">
-                            <span className="icon">✉️</span>
-                            <div>
-                                <h4>Email</h4>
-                                <p>contato@marcenariaapolinario.com.br</p>
+                                <p><a href="tel:+5511971082868">(11) 97108-2868</a></p>
                             </div>
                         </div>
                     </div>
@@ -54,7 +46,7 @@ function Contato() {
                             target="_blank"
                             rel="noreferrer"
                         >
-                            Chamar no WhatsApp
+                            <i className="bi bi-whatsapp" aria-hidden="true"></i> Chamar no WhatsApp
                         </a>
                         <p className="cta-note">Atendimento Seg a Sex, 8h às 18h</p>
                     </div>

@@ -1,6 +1,7 @@
 import React from 'react';
 import './Servicos.css';
 import { servicesData } from '../../data/servicesData';
+import { getServiceWhatsAppUrl } from '../../data/whatsapp';
 import logoCinza from '../../assets/img/logos/logoCinza.svg';
 
 function Servicos() {
@@ -46,7 +47,7 @@ function Servicos() {
                             <div className="card-content">
                                 <h3>{service.title}</h3>
                                 <p>{service.description}</p>
-                                <a href="#contato" className="card-link">Saiba mais &rarr;</a>
+                                <a href={getServiceWhatsAppUrl(service)} className="card-link" target="_blank" rel="noopener noreferrer">Saiba mais &rarr;</a>
                             </div>
                         </div>
                     ))}

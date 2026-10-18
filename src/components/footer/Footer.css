@@ -196,9 +196,8 @@
     color: #b18c55;
 }
 
-.instagram-img{
-    width: 24px;
-    height: 24px;
+.social-link .bi-instagram {
+    font-size: 24px;
 }
 
 /* --- RESPONSIVIDADE --- */
@@ -240,4 +239,12 @@
         gap: 10px;
         text-align: center;
     }
+}
+.contact-list a {
+    color: inherit;
+    text-decoration: none;
+}
+
+.contact-list a:hover {
+    text-decoration: underline;
 }
