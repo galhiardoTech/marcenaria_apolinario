@@ -1,6 +1,7 @@
 // ==========================================
 // IMPORTAÇÃO DE TODAS AS IMAGENS
 // ==========================================
+import { newServicesData } from './newServicesData.js';
 
 // --- Cozinha (Atenção às extensões .png e .jpeg) ---
 import fotoCozinha1 from "../assets/img/servicos/cozinha/cozinha1.png";
@@ -30,6 +31,8 @@ import fotoSala4 from "../assets/img/servicos/sala/sala4.jpeg";
 // ==========================================
 
 export const servicesData = [
+    ...newServicesData,
+
     // --- COZINHAS ---
     {
         id: 1,

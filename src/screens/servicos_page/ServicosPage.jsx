@@ -5,10 +5,12 @@ import Footer from '../../components/footer/Footer';
 import WhatsAppButton from '../../components/whatsapp_button/WhatsAppButton';
 import { servicesData } from '../../data/servicesData';
 import { getServiceWhatsAppUrl } from '../../data/whatsapp';
-import logoCinza from '../../assets/img/logos/logoCinza.svg';
+import { business } from '../../data/business.js';
+import ServiceMediaDialog from '../../components/service_media/ServiceMediaDialog.jsx';
 
 function ServicosPage() {
     const [selectedCategory, setSelectedCategory] = useState('TODOS');
+    const [selectedService, setSelectedService] = useState(null);
     // O scroll para o topo é controlado centralmente pelo ScrollToTop no App.jsx
 
     const filteredServices = selectedCategory === 'TODOS'
@@ -25,7 +27,7 @@ function ServicosPage() {
             <section className="servicos-header" id="servicos-header">
                 <div className="header-content">
                     <h1>Móveis planejados em São Paulo</h1>
-                    <p>Marcenaria sob medida para cozinhas, quartos, salas e banheiros. Conheça as soluções da Marcenaria Apolinário, na Chácara Belenzinho.</p>
+                    <p>Marcenaria sob medida para cozinhas, quartos, salas e banheiros. Conheça as soluções da {business.name}, na Chácara Belenzinho.</p>
                 </div>
             </section>
 
@@ -52,9 +54,24 @@ function ServicosPage() {
                         {filteredServices.map((service) => (
                             <article key={service.id} className="service-card-full">
                                 <div className="card-image-container">
-                                    <img src={service.img} alt={service.title} className="card-image" loading="lazy" decoding="async" />
+                                    <button
+                                        type="button"
+                                        className="service-photo-button"
+                                        onClick={() => setSelectedService(service)}
+                                        aria-label={`Ver foto completa: ${service.title}`}
+                                    >
+                                        <img
+                                            src={service.img}
+                                            alt={service.imageAlt ?? service.title}
+                                            className="card-image"
+                                            style={{ objectPosition: service.imagePosition }}
+                                            loading="lazy"
+                                            decoding="async"
+                                        />
+                                        <span className="service-photo-hint">{service.video ? 'Ver foto e vídeo' : 'Ver foto completa'}</span>
+                                    </button>
                                     <div className="category-badge">{service.category}</div>
-                                    <img src={logoCinza} alt="Marcenaria Apolinário" className="watermark-logo" loading="lazy" decoding="async" />
+                                    <img src={business.watermarkLogoPath} alt={business.name} className="watermark-logo" loading="lazy" decoding="async" />
                                 </div>
 
                                 <div className="card-content-full">
@@ -90,6 +107,7 @@ function ServicosPage() {
                 </div>
             </section>
             </main>
+            <ServiceMediaDialog service={selectedService} onClose={() => setSelectedService(null)} />
             <Footer />
             <WhatsAppButton />
         </div>

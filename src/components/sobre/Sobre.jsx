@@ -1,5 +1,6 @@
 import React from 'react';
 import './Sobre.css';
+import { business } from '../../data/business.js';
 import fotoSobre from '../../assets/img/fotoSobre.jpeg'; // Use uma foto bonita de um móvel ou da oficina
 
 function Sobre() {
@@ -13,7 +14,7 @@ function Sobre() {
                 </h2>
                 
                 <p className="sobre-text">
-                    Há mais de 20 anos, a Marcenaria Apolinário transforma madeira bruta em obras de arte funcionais. 
+                    Há mais de 20 anos, a {business.name} transforma madeira bruta em obras de arte funcionais.
                     Unimos a marcenaria artesanal clássica com as mais modernas tendências de arquitetura e design de interiores.
                 </p>
 
@@ -29,7 +30,7 @@ function Sobre() {
 
             {/* Lado Direito: Imagem */}
             <div className="sobre-image-wrapper">
-                <img src={fotoSobre} alt="Detalhe de acabamento Marcenaria Apolinário" loading="lazy" decoding="async" />
+                <img src={fotoSobre} alt={`Detalhe de acabamento da ${business.name}`} loading="lazy" decoding="async" />
             </div>
         </section>
     );

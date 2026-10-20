@@ -1,6 +1,7 @@
 import React from 'react';
 import './Footer.css';
-import logoCinza from '../../assets/img/logos/logoCinza.svg'; 
+import { business } from '../../data/business.js';
+import { getServiceWhatsAppUrl } from '../../data/whatsapp.js';
 
 function Footer() {
     return (
@@ -9,7 +10,7 @@ function Footer() {
                 
                 {/* Coluna 1: Marca e Sobre */}
                 <div className="footer-section brand-section">
-                    <img src={logoCinza} alt="Marcenaria Apolinário" className="footer-logo" loading="lazy" decoding="async" />
+                    <img src={business.watermarkLogoPath} alt={business.name} className="footer-logo" loading="lazy" decoding="async" />
                     <p className="footer-text">
                         Transformando sonhos em móveis planejados de alto padrão. 
                         Qualidade, durabilidade e design exclusivo para o seu lar.
@@ -22,14 +23,16 @@ function Footer() {
                     <ul className="contact-list">
                         <li>
                             <i className="bi bi-geo-alt-fill icon" aria-hidden="true"></i>
-                            <span>Rua Lessig, 589 - Chácara Belenzinho</span>
+                            <a href={business.mapsUrl} target="_blank" rel="noopener noreferrer">
+                                {business.addressLabel}<br />{business.cityLabel}
+                            </a>
                         </li>
                         <li>
                             <i className="bi bi-telephone-fill icon" aria-hidden="true"></i>
-                            <a href="tel:+5511971082868">(11) 97108-2868</a>
+                            <a href={business.phoneHref}>{business.phone}</a>
                         </li>
                     </ul>
-                    <a href="https://wa.me/5511971082868" className="whatsapp-btn" target="_blank" rel="noopener noreferrer">
+                    <a href={getServiceWhatsAppUrl()} className="whatsapp-btn" target="_blank" rel="noopener noreferrer">
                         <i className="bi bi-whatsapp icon" aria-hidden="true"></i> Chamar no WhatsApp
                     </a>
                 </div>
@@ -38,8 +41,11 @@ function Footer() {
                 <div className="footer-section social-section">
                     <h3 className="footer-title">Siga-nos</h3>
                     <div className="social-icons">
-                        <a href="https://www.instagram.com/apolinariomoveisplanejado/" aria-label="Instagram" className="social-link" target="_blank" rel="noopener noreferrer">
+                        <a href={business.instagramUrl} aria-label="Instagram" className="social-link" target="_blank" rel="noopener noreferrer">
                             <i className="bi bi-instagram" aria-hidden="true"></i>
+                        </a>
+                        <a href={business.mapsUrl} aria-label={`${business.name} no Google Maps`} className="social-link" target="_blank" rel="noopener noreferrer">
+                            <i className="bi bi-geo-alt-fill" aria-hidden="true"></i>
                         </a>
                     </div>
                 </div>
@@ -48,7 +54,7 @@ function Footer() {
             {/* Barra de Direitos Autorais */}
             <div className="footer-bottom">
                 <div className="bottom-content">
-                    <p>&copy; {new Date().getFullYear()} Marcenaria Apolinário.</p>
+                    <p>&copy; {new Date().getFullYear()} {business.name}.</p>
                     <p className="developer">Desenvolvido por GalhiardoTech</p>
                 </div>
             </div>

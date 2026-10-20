@@ -1,5 +1,6 @@
 import React from 'react'
 import './Home.css'
+import { business } from '../../data/business.js'
 
 function Home() {
     return (
@@ -8,12 +9,12 @@ function Home() {
                 {/* Texto pequeno acima do título (igual na foto) */}
                 <span className="pre-title">SOFISTICAÇÃO E QUALIDADE</span>
                 
-                <h1 className="home-title">MARCENARIA APOLINÁRIO</h1>
+                <h1 className="home-title">{business.name}</h1>
                 
                 <p className="home-subtitle">
                     Móveis planejados e marcenaria sob medida em São Paulo.
                     Projetos exclusivos para cozinhas, quartos, salas e banheiros,
-                    com a Marcenaria Apolinário na Chácara Belenzinho.
+                    com a {business.name} na Chácara Belenzinho.
                 </p>
                 
                 <a className="home-cta" href="#contato">Solicite um orçamento</a>

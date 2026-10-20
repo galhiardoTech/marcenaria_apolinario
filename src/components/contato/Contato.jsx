@@ -1,5 +1,7 @@
 import React from 'react';
 import './Contato.css';
+import { business } from '../../data/business.js';
+import { getServiceWhatsAppUrl } from '../../data/whatsapp.js';
 
 function Contato() {
 
@@ -21,7 +23,11 @@ function Contato() {
                             <i className="bi bi-geo-alt-fill icon" aria-hidden="true"></i>
                             <div>
                                 <h4>Localização</h4>
-                                <p>Rua Lessig, 589 - Chácara Belenzinho</p>
+                                <p>
+                                    <a href={business.mapsUrl} target="_blank" rel="noopener noreferrer">
+                                        {business.addressLabel}<br />{business.cityLabel}
+                                    </a>
+                                </p>
                             </div>
                         </div>
                         
@@ -29,7 +35,7 @@ function Contato() {
                             <i className="bi bi-telephone-fill icon" aria-hidden="true"></i>
                             <div>
                                 <h4>Telefone / WhatsApp</h4>
-                                <p><a href="tel:+5511971082868">(11) 97108-2868</a></p>
+                                <p><a href={business.phoneHref}>{business.phone}</a></p>
                             </div>
                         </div>
                     </div>
@@ -42,7 +48,7 @@ function Contato() {
                         <p>Resposta rápida, envio de fotos e orçamentos personalizados direto com nosso time.</p>
                         <a 
                             className="whatsapp-btn"
-                            href="https://wa.me/5511971082868?text=Ol%C3%A1%2C%20gostaria%20de%20um%20or%C3%A7amento%20de%20marcenaria"
+                            href={getServiceWhatsAppUrl()}
                             target="_blank"
                             rel="noreferrer"
                         >

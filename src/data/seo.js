@@ -1,22 +1,24 @@
-export const siteUrl = 'https://www.apolinariointeriores.com.br';
+import { business } from './business.js';
+
+export const siteUrl = business.siteUrl;
 export const indexablePaths = ['/', '/servicos'];
 
 const pages = {
     '/': {
-        title: 'Marcenaria em São Paulo | Apolinário Interiores',
-        description: 'Móveis planejados e marcenaria sob medida na Chácara Belenzinho, São Paulo. Cozinhas, quartos, salas e banheiros. Solicite seu orçamento à Apolinário.',
+        title: `${business.name} | Marcenaria em São Paulo`,
+        description: 'Móveis planejados sob medida em São Paulo com a Apolinário Móveis Planejados. Cozinhas, quartos, salas e banheiros na Chácara Belenzinho. Peça seu orçamento.',
     },
     '/servicos': {
-        title: 'Móveis Planejados em São Paulo | Marcenaria Apolinário',
-        description: 'Conheça nossas soluções de móveis planejados para cozinhas, quartos, salas e banheiros em São Paulo. Projetos sob medida da Marcenaria Apolinário.',
+        title: `Serviços de Marcenaria em São Paulo | ${business.name}`,
+        description: 'Conheça as soluções da Apolinário Móveis Planejados: cozinhas, quartos, salas e banheiros sob medida em São Paulo. Solicite um orçamento para seu projeto.',
     },
 };
 
 export function getSeoTags(pathname) {
     const path = pathname === '/' ? '/' : pathname.replace(/\/+$/, '');
     const page = pages[path];
-    const title = page?.title ?? 'Página não encontrada | Marcenaria Apolinário';
-    const description = page?.description ?? 'Acesse a página inicial da Marcenaria Apolinário e conheça nossos móveis planejados.';
+    const title = page?.title ?? `Página não encontrada | ${business.name}`;
+    const description = page?.description ?? `Acesse a página inicial da ${business.name} e conheça nossos móveis planejados.`;
     const url = `${siteUrl}${path}`;
     const tags = [
         { tag: 'title', attrs: {}, children: title },
@@ -24,15 +26,15 @@ export function getSeoTags(pathname) {
         { tag: 'meta', attrs: { name: 'robots', content: page ? 'index, follow, max-image-preview:large' : 'noindex, follow' } },
         { tag: 'meta', attrs: { property: 'og:type', content: 'website' } },
         { tag: 'meta', attrs: { property: 'og:locale', content: 'pt_BR' } },
-        { tag: 'meta', attrs: { property: 'og:site_name', content: 'Marcenaria Apolinário' } },
+        { tag: 'meta', attrs: { property: 'og:site_name', content: business.name } },
         { tag: 'meta', attrs: { property: 'og:title', content: title } },
         { tag: 'meta', attrs: { property: 'og:description', content: description } },
-        { tag: 'meta', attrs: { property: 'og:image', content: `${siteUrl}/images/moveis-planejados-apolinario.jpeg` } },
-        { tag: 'meta', attrs: { property: 'og:image:alt', content: 'Móveis planejados da Marcenaria Apolinário' } },
+        { tag: 'meta', attrs: { property: 'og:image', content: `${siteUrl}${business.socialImagePath}` } },
+        { tag: 'meta', attrs: { property: 'og:image:alt', content: `Móveis sob medida da ${business.name}` } },
         { tag: 'meta', attrs: { name: 'twitter:card', content: 'summary_large_image' } },
         { tag: 'meta', attrs: { name: 'twitter:title', content: title } },
         { tag: 'meta', attrs: { name: 'twitter:description', content: description } },
-        { tag: 'meta', attrs: { name: 'twitter:image', content: `${siteUrl}/images/moveis-planejados-apolinario.jpeg` } },
+        { tag: 'meta', attrs: { name: 'twitter:image', content: `${siteUrl}${business.socialImagePath}` } },
     ];
 
     if (page) {
@@ -48,27 +50,30 @@ export function getSeoTags(pathname) {
                         {
                             '@type': 'LocalBusiness',
                             '@id': `${siteUrl}/#empresa`,
-                            name: 'Marcenaria Apolinário',
-                            alternateName: 'Apolinário Interiores',
+                            name: business.name,
+                            alternateName: business.alternateNames,
                             url: `${siteUrl}/`,
                             description: 'Marcenaria e móveis planejados sob medida para cozinhas, quartos, salas e banheiros em São Paulo.',
-                            telephone: '+55-11-97108-2868',
-                            image: `${siteUrl}/images/moveis-planejados-apolinario.jpeg`,
+                            telephone: business.telephone,
+                            logo: `${siteUrl}${business.logoPath}`,
+                            image: `${siteUrl}${business.socialImagePath}`,
                             address: {
                                 '@type': 'PostalAddress',
-                                streetAddress: 'Rua Lessig, 589 - Chácara Belenzinho',
-                                addressLocality: 'São Paulo',
-                                addressRegion: 'SP',
-                                postalCode: '03276-000',
-                                addressCountry: 'BR',
+                                streetAddress: business.address.streetAddress,
+                                addressLocality: business.address.addressLocality,
+                                addressRegion: business.address.addressRegion,
+                                postalCode: business.address.postalCode,
+                                addressCountry: business.address.addressCountry,
                             },
-                            sameAs: ['https://www.instagram.com/apolinariomoveisplanejado/'],
+                            hasMap: business.mapsUrl,
+                            sameAs: [business.instagramUrl, business.mapsUrl],
                         },
                         {
                             '@type': 'WebSite',
                             '@id': `${siteUrl}/#site`,
                             url: `${siteUrl}/`,
-                            name: 'Marcenaria Apolinário',
+                            name: business.name,
+                            alternateName: business.alternateNames,
                             inLanguage: 'pt-BR',
                             publisher: { '@id': `${siteUrl}/#empresa` },
                         },

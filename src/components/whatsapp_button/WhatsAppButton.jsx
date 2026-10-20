@@ -1,11 +1,9 @@
 import React from 'react';
 import './WhatsAppButton.css';
+import { getServiceWhatsAppUrl } from '../../data/whatsapp.js';
 
 function WhatsAppButton() {
-    const phoneNumber = "5511971082868"; 
-    const message = "Olá! Gostaria de um orçamento.";
-
-    const whatsappUrl = `https://wa.me/${phoneNumber}?text=${encodeURIComponent(message)}`;
+    const whatsappUrl = getServiceWhatsAppUrl();
 
     return (
         <a 

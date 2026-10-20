@@ -1,6 +1,18 @@
-﻿# Marcenaria Apolinário
+# Apolinário Móveis Planejados
 
-Site em React e Vite da Marcenaria Apolinário, na Chácara Belenzinho, São Paulo.
+Site institucional em React e Vite da Apolinário Móveis Planejados, na Chácara Belenzinho, São Paulo. Apresenta projetos de cozinhas, quartos, salas e banheiros sob medida, com contato para orçamento.
+
+## Identidade e contato
+
+- Nome principal: **Apolinário Móveis Planejados**.
+- Site: **https://www.apolinariointeriores.com.br/**.
+- Telefone/WhatsApp: **(11) 97108-2868**.
+- Endereço: **Rua Lessing, 589 — Chácara Belenzinho, São Paulo — SP, CEP 03276-000**.
+- Instagram: **https://www.instagram.com/apolinariomoveisplanejado/**.
+
+Os nomes anteriores Marcenaria Apolinário e Apolinário Interiores podem aparecer como nomes alternativos nos dados estruturados. O domínio continua sendo apolinariointeriores.com.br. O perfil do negócio no Google deve ser vinculado pelo endereço específico confirmado no Maps, evitando resultados de empresas homônimas.
+
+Os dados da empresa e o link exato do Maps estão em `src/data/business.js`. O histórico da revisão, as fontes e as pendências estão em [docs/contexto-projeto.md](docs/contexto-projeto.md).
 
 ## Desenvolvimento e validação
 
@@ -15,37 +27,48 @@ npm run preview
 
 No PowerShell com scripts desabilitados, use `npm.cmd` no lugar de `npm`.
 
-O build gera conteúdo HTML completo para `/` e `/servicos`, com hidratação React para menus e filtros. O resultado publicável está em `dist/`; `dist-ssr/` é apenas um artefato usado na geração.
+O build gera HTML completo para `/` e `/servicos`, com hidratação React para menus e filtros. O conteúdo publicável fica em `dist/`; `dist-ssr/` é um artefato intermediário. Execute `test:seo` depois do build, pois ele verifica os arquivos de `dist/`.
 
-## SEO e publicação
+## SEO
 
-O domínio oficial é `https://www.apolinariointeriores.com.br`. Os títulos, descrições, URLs canônicas, compartilhamento social e dados estruturados estão centralizados em `src/data/seo.js`. Não são publicados horários, avaliações ou outras informações comerciais não confirmadas.
+Títulos, descrições, URLs canônicas, compartilhamento social e dados estruturados estão centralizados em `src/data/seo.js`. O domínio canônico usa HTTPS e `www`.
 
-O comando de build também gera:
+`public/favicon.png` é a versão quadrada de 96 × 96 pixels da logo existente. `public/images/logo-apolinario.png` é a versão quadrada de 512 × 512 usada no cabeçalho e nos dados estruturados. `public/images/logo-apolinario-cinza.png` preserva a arte usada no rodapé e nas marcas d'água. As artes SVG originais foram preservadas.
 
-- `dist/index.html`: página inicial, com conteúdo local e contato;
-- `dist/servicos/index.html`: catálogo completo, legível sem executar JavaScript;
-- `dist/robots.txt` e `dist/sitemap.xml`: instruções de rastreamento e as duas URLs públicas;
+O build também gera:
+
+- `dist/index.html`: página inicial com conteúdo local e contato.
+- `dist/servicos/index.html`: catálogo legível sem JavaScript.
+- `dist/robots.txt` e `dist/sitemap.xml`: rastreamento e as duas URLs públicas.
 - `dist/404.html`: página de erro com `noindex`.
 
-Publique o conteúdo de `dist/` na raiz da hospedagem, incluindo subdiretórios e imagens. Configure o servidor para:
+Não acrescente horários, avaliações, preços ou certificações sem confirmação. Mantenha nome, endereço, telefone, site e identidade visual consistentes no site, Instagram e Perfil da Empresa no Google.
 
-1. Servir `/servicos/index.html` ao acessar `/servicos`, preferencialmente sem redirecionamento para uma URL com barra final.
-2. Servir `404.html` com status HTTP **404** para URLs inexistentes. Evite uma regra geral que entregue a página inicial com status 200 para qualquer endereço.
-3. Redirecionar HTTP para HTTPS e o domínio sem `www` para `https://www.apolinariointeriores.com.br`, preservando caminho e parâmetros.
+## Domínio e publicação
 
-As regras para a Hostinger estão em `public/.htaccess`, copiado automaticamente para `dist/.htaccess`. Elas configuram o domínio oficial, a página de serviços e o erro 404. Na hospedagem web com Apache/LiteSpeed, envie o conteúdo de `dist/` para `public_html`, incluindo esse arquivo. Antes de substituir um `.htaccess` existente, guarde uma cópia e preserve eventuais regras adicionais; remova a regra antiga que enviava qualquer endereço para `index.html`.
+O domínio é administrado na **Hostinger** e a aplicação React é publicada na **Vercel**, conforme informado pelo responsável. Configurações de DNS da Hostinger e publicação da Vercel têm funções diferentes.
 
-Após o envio, confira que `/servicos` entrega o catálogo diretamente, que HTTP e o domínio sem `www` redirecionam para o endereço oficial e que uma URL inexistente retorna status 404. Essas regras ainda precisam ser verificadas na hospedagem real. `vite preview` serve apenas para conferir o build local, não para hospedar em produção.
+Na Vercel, o comando de build é `npm run build` e a saída estática é `dist`. A configuração de domínio deve enviar HTTP e o domínio sem `www` para `https://www.apolinariointeriores.com.br`, preservando o caminho e os parâmetros.
 
-Depois da publicação:
+Após publicar, confira:
 
-1. Verifique a propriedade do domínio no [Google Search Console](https://search.google.com/search-console) pelo método disponível no provedor de DNS.
-2. Envie `https://www.apolinariointeriores.com.br/sitemap.xml`.
-3. Inspecione `/` e `/servicos` e confira o HTML renderizado e a possibilidade de indexação.
-4. Confira os dados estruturados no [Teste de pesquisa aprimorada](https://search.google.com/test/rich-results).
-5. Mantenha nome, telefone, endereço e site consistentes no Perfil da Empresa no Google. Use os horários reais apenas depois de confirmados.
+1. `/` responde com status 200 e o nome correto da empresa.
+2. `/servicos` entrega diretamente o catálogo pré-renderizado.
+3. Uma URL inexistente responde com status 404 e a página com `noindex`.
+4. HTTP e a versão sem `www` redirecionam para a versão oficial.
+5. O favicon e os arquivos de logo são públicos e carregam corretamente.
+6. `/robots.txt` e `/sitemap.xml` respondem com seu conteúdo próprio.
 
-Os SVGs das logos e algumas fotos originais ainda são grandes. A próxima melhoria de desempenho é otimizar esses arquivos preservando a identidade visual, e medir o resultado no PageSpeed Insights após a publicação.
+`public/.htaccess` contém regras para uma eventual hospedagem Apache/LiteSpeed. Esse arquivo não configura as rotas ou os redirecionamentos da Vercel. `vite preview` serve apenas para conferir o build local.
 
-Referências: [Guia de SEO do Google](https://developers.google.com/search/docs/fundamentals/seo-starter-guide?hl=pt-br), [SEO em JavaScript](https://developers.google.com/search/docs/crawling-indexing/javascript/javascript-seo-basics?hl=pt-br) e [dados estruturados de empresa local](https://developers.google.com/search/docs/appearance/structured-data/local-business?hl=pt-br).
+## Google
+
+1. Verifique a propriedade do domínio no [Google Search Console](https://search.google.com/search-console).
+2. Envie **https://www.apolinariointeriores.com.br/sitemap.xml**.
+3. Inspecione as versões com `www` de `/` e `/servicos`.
+4. Confira os dados no [Teste de pesquisa aprimorada](https://search.google.com/test/rich-results).
+5. Use o site canônico e os dados de contato corretos no Perfil da Empresa.
+
+A versão sem `www` pode aparecer como “Página com redirecionamento” no Search Console, enquanto a versão oficial é indexada. A exibição de favicon, nome do site e fotos nos resultados é decidida pelo Google e pode demorar a refletir uma atualização.
+
+Referências: [Guia de SEO do Google](https://developers.google.com/search/docs/fundamentals/seo-starter-guide?hl=pt-br), [SEO em JavaScript](https://developers.google.com/search/docs/crawling-indexing/javascript/javascript-seo-basics?hl=pt-br), [dados estruturados de empresa local](https://developers.google.com/search/docs/appearance/structured-data/local-business?hl=pt-br) e [favicon nos resultados](https://developers.google.com/search/docs/appearance/favicon-in-search?hl=pt-br).

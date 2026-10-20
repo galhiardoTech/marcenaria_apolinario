@@ -1,0 +1,26 @@
+const address = {
+    streetAddress: 'Rua Lessing, 589',
+    neighborhood: 'Chácara Belenzinho',
+    addressLocality: 'São Paulo',
+    addressRegion: 'SP',
+    postalCode: '03276-000',
+    addressCountry: 'BR',
+};
+
+export const business = {
+    name: 'Apolinário Móveis Planejados',
+    alternateNames: ['Marcenaria Apolinário', 'Apolinário Interiores'],
+    siteUrl: 'https://www.apolinariointeriores.com.br',
+    phone: '(11) 97108-2868',
+    telephone: '+55-11-97108-2868',
+    phoneHref: 'tel:+5511971082868',
+    whatsappNumber: '5511971082868',
+    address,
+    addressLabel: `${address.streetAddress} - ${address.neighborhood}`,
+    cityLabel: `${address.addressLocality} - ${address.addressRegion}, CEP ${address.postalCode}`,
+    instagramUrl: 'https://www.instagram.com/apolinariomoveisplanejado/',
+    mapsUrl: 'https://www.google.com/maps/place/Apolinario+M%C3%B3veis+Planejados/@-23.5805781,-46.549859,17z/data=!3m1!4b1!4m6!3m5!1s0x94ce5d52f80a37e1:0x465de042dd63e6b5!8m2!3d-23.5805781!4d-46.549859!16s%2Fg%2F11zzslkvtm',
+    logoPath: '/images/logo-apolinario.png',
+    watermarkLogoPath: '/images/logo-apolinario-cinza.png',
+    socialImagePath: '/images/moveis-planejados-apolinario.jpeg',
+};

@@ -5,6 +5,7 @@ import HomeScreen from './screens/home_screen/HomeScreen.jsx';
 import ServicosPage from './screens/servicos_page/ServicosPage.jsx';
 import Seo from './components/seo/Seo.jsx';
 import { Link } from 'react-router-dom';
+import { business } from './data/business.js';
 
 // Desativa a restauração automática de scroll do navegador
 if (typeof window !== 'undefined' && 'scrollRestoration' in window.history) {
@@ -60,7 +61,7 @@ export function AppContent() {
         <Route path="*" element={
           <main style={{ padding: '80px 24px', textAlign: 'center' }}>
             <h1>Página não encontrada</h1>
-            <p>Conheça os móveis planejados da Marcenaria Apolinário.</p>
+            <p>Conheça os móveis sob medida da {business.name}.</p>
             <Link to="/">Voltar à página inicial</Link>
           </main>
         } />

@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import './Header.css';
 
-import logoColorida from '../../assets/img/logos/logoColorida.svg';
+import { business } from '../../data/business.js';
 
 function Header() {
     const [activeLink, setActiveLink] = useState('#home');
@@ -50,9 +50,9 @@ function Header() {
                     className="logo"
                     to="/#home"
                     onClick={closeMenu}
-                    aria-label="Marcenaria Apolinário"
+                    aria-label={business.name}
                 >
-                    <img src={logoColorida} alt="Logo Marcenaria Apolinário" />
+                    <img src={business.logoPath} alt={business.name} />
                 </Link>
 
                 <button
