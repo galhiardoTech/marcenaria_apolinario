@@ -21,6 +21,7 @@ npm install
 npm run dev
 npm run build
 npm run test:seo
+npm run audit:seo
 npm run lint
 npm run preview
 ```
@@ -34,6 +35,10 @@ O build gera HTML completo para `/` e `/servicos`, com hidratação React para m
 Títulos, descrições, URLs canônicas, compartilhamento social e dados estruturados estão centralizados em `src/data/seo.js`. O domínio canônico usa HTTPS e `www`.
 
 `public/favicon.png` é a versão quadrada de 96 × 96 pixels da logo existente. `public/images/logo-apolinario.png` é a versão quadrada de 512 × 512 usada no cabeçalho e nos dados estruturados. `public/images/logo-apolinario-cinza.png` preserva a arte usada no rodapé e nas marcas d'água. As artes SVG originais foram preservadas.
+
+Também estão disponíveis `favicon.ico` (32 e 48 pixels), `apple-touch-icon.png` (180 pixels), `icon-192.png` e `site.webmanifest`. A foto principal é identificada por `ImageObject` e `primaryImageOfPage` na página inicial; o catálogo informa `Service` e a navegação de serviços informa `BreadcrumbList`. As mesmas fotos exibidas no HTML entram na extensão de imagens do sitemap, sem incluir logos nem datas de atualização artificiais.
+
+A imagem de abertura, também usada no cabeçalho de serviços, foi exportada para JPEG de 195 KB, cerca de 90% menor que o PNG original. A home antecipa seu carregamento com preload. A imagem social tem URL estável, dimensões e descrição, e é a mesma exibida na seção Sobre.
 
 O build também gera:
 
@@ -50,6 +55,8 @@ O domínio é administrado na **Hostinger** e a aplicação React é publicada n
 
 Na Vercel, o comando de build é `npm run build` e a saída estática é `dist`. A configuração de domínio deve enviar HTTP e o domínio sem `www` para `https://www.apolinariointeriores.com.br`, preservando o caminho e os parâmetros.
 
+O `vercel.json` mantém o build e a saída estática no repositório, desativa a inferência de SPA, normaliza URLs sem `.html` e sem barra final e redireciona o host sem `www`. Não adicione um rewrite global para a home: as páginas pré-renderizadas e o erro HTTP 404 precisam continuar acessíveis diretamente.
+
 Após publicar, confira:
 
 1. `/` responde com status 200 e o nome correto da empresa.
@@ -63,6 +70,8 @@ Após publicar, confira:
 
 ## Google
 
+Veja o [guia completo de publicação e Search Console](docs/google-search-console.md), incluindo verificação por TXT na Hostinger e envio do sitemap. Para a alternativa de verificação por tag HTML, configure o token público real em `VITE_GOOGLE_SITE_VERIFICATION`, conforme `.env.example`, e publique outro build. A propriedade de Domínio utiliza DNS, dispensando essa variável.
+
 1. Verifique a propriedade do domínio no [Google Search Console](https://search.google.com/search-console).
 2. Envie **https://www.apolinariointeriores.com.br/sitemap.xml**.
 3. Inspecione as versões com `www` de `/` e `/servicos`.
@@ -70,5 +79,7 @@ Após publicar, confira:
 5. Use o site canônico e os dados de contato corretos no Perfil da Empresa.
 
 A versão sem `www` pode aparecer como “Página com redirecionamento” no Search Console, enquanto a versão oficial é indexada. A exibição de favicon, nome do site e fotos nos resultados é decidida pelo Google e pode demorar a refletir uma atualização.
+
+`npm run audit:seo` faz uma auditoria HTTP do domínio publicado: páginas, metadados, ícones, fotos, sitemap, robots, redirecionamentos e erro 404. Execute depois de publicar; falhas em recursos recém-adicionados podem indicar que a produção ainda está na versão anterior. Essa auditoria não consulta o status privado de indexação do Google.
 
 Referências: [Guia de SEO do Google](https://developers.google.com/search/docs/fundamentals/seo-starter-guide?hl=pt-br), [SEO em JavaScript](https://developers.google.com/search/docs/crawling-indexing/javascript/javascript-seo-basics?hl=pt-br), [dados estruturados de empresa local](https://developers.google.com/search/docs/appearance/structured-data/local-business?hl=pt-br) e [favicon nos resultados](https://developers.google.com/search/docs/appearance/favicon-in-search?hl=pt-br).

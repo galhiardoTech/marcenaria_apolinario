@@ -23,4 +23,8 @@ export const business = {
     logoPath: '/images/logo-apolinario.png',
     watermarkLogoPath: '/images/logo-apolinario-cinza.png',
     socialImagePath: '/images/moveis-planejados-apolinario.jpeg',
+    socialImageWidth: 1600,
+    socialImageHeight: 1200,
+    socialImageAlt: 'Armário e bancada sob medida com espelho e acabamento amadeirado da Apolinário Móveis Planejados',
+    heroImagePath: '/images/marcenaria-sob-medida-sao-paulo.jpg',
 };

@@ -1,7 +1,6 @@
 import React from 'react';
 import './Sobre.css';
 import { business } from '../../data/business.js';
-import fotoSobre from '../../assets/img/fotoSobre.jpeg'; // Use uma foto bonita de um móvel ou da oficina
 
 function Sobre() {
     return (
@@ -30,7 +29,7 @@ function Sobre() {
 
             {/* Lado Direito: Imagem */}
             <div className="sobre-image-wrapper">
-                <img src={fotoSobre} alt={`Detalhe de acabamento da ${business.name}`} loading="lazy" decoding="async" />
+                <img src={business.socialImagePath} alt={business.socialImageAlt} width={business.socialImageWidth} height={business.socialImageHeight} loading="lazy" decoding="async" />
             </div>
         </section>
     );

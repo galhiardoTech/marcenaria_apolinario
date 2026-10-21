@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { Link } from 'react-router-dom';
 import './ServicosPage.css';
 import Header from '../../components/header/Header';
 import Footer from '../../components/footer/Footer';
@@ -26,6 +27,11 @@ function ServicosPage() {
             
             <section className="servicos-header" id="servicos-header">
                 <div className="header-content">
+                    <nav className="service-breadcrumb" aria-label="Caminho de navegação">
+                        <Link to="/">Início</Link>
+                        <span aria-hidden="true"> / </span>
+                        <span aria-current="page">Serviços</span>
+                    </nav>
                     <h1>Móveis planejados em São Paulo</h1>
                     <p>Marcenaria sob medida para cozinhas, quartos, salas e banheiros. Conheça as soluções da {business.name}, na Chácara Belenzinho.</p>
                 </div>
@@ -48,7 +54,7 @@ function ServicosPage() {
                 </div>
             </section>
 
-            <section className="servicos-grid-section">
+            <section className="servicos-grid-section" id="catalogo">
                 <div className="servicos-grid-container">
                     <div className={`services-grid ${filteredServices.length === 1 ? 'single-item' : ''}`}>
                         {filteredServices.map((service) => (

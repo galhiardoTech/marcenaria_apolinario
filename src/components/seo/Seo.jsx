@@ -8,7 +8,9 @@ export default function Seo() {
     useEffect(() => {
         document.head.querySelectorAll('[data-site-seo]').forEach(node => node.remove());
 
-        for (const { tag, attrs, children } of getSeoTags(pathname)) {
+        for (const { tag, attrs, children } of getSeoTags(pathname, {
+            googleSiteVerification: import.meta.env.VITE_GOOGLE_SITE_VERIFICATION,
+        })) {
             const node = document.createElement(tag);
             node.setAttribute('data-site-seo', '');
             for (const [name, value] of Object.entries(attrs)) node.setAttribute(name, value);

@@ -101,3 +101,17 @@ Foram incluídos cinco trabalhos da pasta `fotosNovosServicos`: uma cozinha, tr�
 - [Google: nome do site](https://developers.google.com/search/docs/appearance/site-names?hl=pt-br).
 - [Google: relatório de sitemaps](https://support.google.com/webmasters/answer/7451001?hl=pt-BR).
 - [Google: inspeção de URL](https://support.google.com/webmasters/answer/9012289?hl=pt-BR).
+
+## Revisão de SEO e preparação para o Search Console
+
+A nova conferência HTTP de produção, em 20 de outubro de 2026 no horário de São Paulo, confirmou que o favicon PNG de 96 pixels já está publicado e responde 200. Portanto, a captura com globo genérico não demonstra falha no carregamento atual do arquivo. O rastreamento e a apresentação final do Google são etapas posteriores à publicação.
+
+Nesta etapa foram adicionados `favicon.ico` de 32/48 pixels, ícone Apple de 180 pixels, ícone de 192 pixels e manifesto. A foto social passa a informar tipo, dimensões e descrição; o HTML da seção Sobre usa a mesma URL estável. Os dados estruturados identificam a imagem principal da home, as quatro categorias de serviços e a navegação de serviços, sem inventar avaliações, preços ou horários.
+
+O sitemap gerado inclui as duas páginas canônicas e 25 referências a fotos realmente presentes no HTML. Logos são excluídas e não são criadas datas artificiais de atualização. A imagem de abertura e do cabeçalho de serviços foi exportada para JPEG de 195.024 bytes, com redução de aproximadamente 90%; o PNG original foi preservado.
+
+`vercel.json` registra build, saída estática, URLs limpas, remoção da barra final e redirecionamento do host sem `www`. Não existe fallback global de SPA na configuração. A verificação por tag HTML é opcional por `VITE_GOOGLE_SITE_VERIFICATION`; nenhum token foi inventado ou adicionado. O fluxo recomendado de propriedade de Domínio utiliza TXT real fornecido pelo Google na zona DNS ativa.
+
+Validações locais: build e oito testes de SEO aprovados; XML válido com duas páginas e 25 fotos; lint e verificação de diferenças aprovados. A auditoria HTTP `npm run audit:seo` na produção encontrou dez verificações aprovadas e três diferenças em relação ao novo build: os arquivos ICO e Apple ainda retornam 404 e o sitemap publicado ainda não tem as fotos. Esses recursos adicionais não são pré-requisitos para indexar as páginas; já estão preparados em `dist/` para o próximo deploy.
+
+As alterações desta etapa continuam locais. Não foi feito deploy, envio do sitemap na conta do Google nem alteração do DNS. O procedimento completo está em [google-search-console.md](google-search-console.md). Após publicar, executar novamente `npm run audit:seo`, enviar o sitemap e inspecionar as duas URLs canônicas no Search Console.

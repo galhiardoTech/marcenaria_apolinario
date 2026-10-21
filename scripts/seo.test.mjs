@@ -1,6 +1,8 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import { readFile, access } from 'node:fs/promises';
+import { getSeoTags, renderSeoHead } from '../src/data/seo.js';
+import { business as siteBusiness } from '../src/data/business.js';
 
 const dist = new URL('../dist/', import.meta.url);
 
@@ -65,6 +67,74 @@ test('favicon publicado é um PNG quadrado de 96 pixels', async () => {
     assert.equal(favicon.readUInt32BE(20), 96);
 });
 
+test('ícones compatíveis e manifesto apontam para arquivos válidos', async () => {
+    const ico = await readFile(new URL('favicon.ico', dist));
+    assert.equal(ico.readUInt16LE(0), 0);
+    assert.equal(ico.readUInt16LE(2), 1);
+    assert.equal(ico.readUInt16LE(4), 2);
+    const sizes = [];
+    for (let index = 0; index < ico.readUInt16LE(4); index++) {
+        const entry = 6 + index * 16;
+        assert.equal(ico[entry], ico[entry + 1]);
+        sizes.push(ico[entry]);
+        assert.ok(ico.readUInt32LE(entry + 12) + ico.readUInt32LE(entry + 8) <= ico.length);
+    }
+    assert.deepEqual(sizes, [32, 48]);
+    for (const [file, size] of [['apple-touch-icon.png', 180], ['icon-192.png', 192], ['images/logo-apolinario.png', 512]]) {
+        const png = await readFile(new URL(file, dist));
+        assert.equal(png.subarray(0, 8).toString('hex'), '89504e470d0a1a0a');
+        assert.equal(png.readUInt32BE(16), size);
+        assert.equal(png.readUInt32BE(20), size);
+    }
+    const manifest = JSON.parse(await readFile(new URL('site.webmanifest', dist), 'utf8'));
+    assert.equal(manifest.name, siteBusiness.name);
+    assert.equal(manifest.lang, 'pt-BR');
+    for (const icon of manifest.icons) await access(new URL(icon.src.slice(1), dist));
+});
+
+test('imagem preferida, catálogo e navegação têm dados estruturados coerentes com o conteúdo', async () => {
+    for (const file of ['index.html', 'servicos/index.html']) {
+        const html = await readFile(new URL(file, dist), 'utf8');
+        const graph = JSON.parse(html.match(/<script[^>]+type="application\/ld\+json"[^>]*>([\s\S]*?)<\/script>/)[1])['@graph'];
+        const image = graph.find(node => node['@type'] === 'ImageObject');
+        assert.equal(image.contentUrl, `${siteBusiness.siteUrl}${siteBusiness.socialImagePath}`);
+        assert.equal(image.width, 1600);
+        assert.equal(image.height, 1200);
+        assert.ok(html.includes('property="og:image:width" content="1600"'));
+        assert.ok(html.includes('property="og:image:type" content="image/jpeg"'));
+        assert.ok(html.includes('name="twitter:image:alt"'));
+        const catalog = graph.find(node => node['@type'] === 'OfferCatalog');
+        assert.equal(catalog.itemListElement.length, 4);
+        assert.ok(catalog.itemListElement.every(node => node['@type'] === 'Service' && node.provider['@id'] === `${siteBusiness.siteUrl}/#empresa`));
+        assert.ok(!html.includes('aggregateRating'));
+        if (file === 'index.html') {
+            const page = graph.find(node => node['@type'] === 'WebPage');
+            assert.equal(page.primaryImageOfPage['@id'], image['@id']);
+            assert.ok(html.includes(`src="${siteBusiness.socialImagePath}"`));
+            assert.ok(html.includes(`rel="preload" as="image" href="${siteBusiness.heroImagePath}"`));
+            const hero = await readFile(new URL(siteBusiness.heroImagePath.slice(1), dist));
+            assert.equal(hero.subarray(0, 3).toString('hex'), 'ffd8ff');
+            assert.ok(hero.length < 300_000, 'Foto de abertura deve continuar otimizada');
+        } else {
+            const page = graph.find(node => node['@type'] === 'CollectionPage');
+            const breadcrumb = graph.find(node => node['@type'] === 'BreadcrumbList');
+            assert.equal(page.breadcrumb['@id'], breadcrumb['@id']);
+            assert.deepEqual(breadcrumb.itemListElement.map(item => item.item), [`${siteBusiness.siteUrl}/`, `${siteBusiness.siteUrl}/servicos`]);
+            assert.ok(html.includes('aria-label="Caminho de navegação"'));
+            assert.ok(html.includes('id="catalogo"'));
+        }
+    }
+});
+
+test('verificação do Search Console é opcional e aceita apenas o token público', () => {
+    assert.ok(!renderSeoHead('/').includes('google-site-verification'));
+    const verification = 'token-publico_do-Google123';
+    const head = renderSeoHead('/', { googleSiteVerification: verification });
+    assert.ok(head.includes(`name="google-site-verification" content="${verification}"`));
+    assert.throws(() => getSeoTags('/', { googleSiteVerification: '<meta content="token" />' }), /somente o token/);
+    assert.ok(!renderSeoHead('/inexistente').includes('application/ld+json'));
+});
+
 test('novos serviços e fotos estão publicados no catálogo pré-renderizado', async () => {
     const html = await readFile(new URL('servicos/index.html', dist), 'utf8');
     const titles = [
@@ -97,6 +167,20 @@ test('sitemap e robots apontam apenas para as páginas públicas do domínio def
     ]);
     assert.match(robots, /Allow: \//);
     assert.ok(robots.includes('Sitemap: https://www.apolinariointeriores.com.br/sitemap.xml'));
+    assert.ok(sitemap.includes('xmlns:image="http://www.google.com/schemas/sitemap-image/1.1"'));
+    assert.ok(!sitemap.includes('<lastmod>'), 'Não declarar uma data de alteração artificial a cada build');
+    for (const [, pageUrl, imagesXml] of sitemap.matchAll(/<url>\s*<loc>([^<]+)<\/loc>([\s\S]*?)<\/url>/g)) {
+        const html = await readFile(new URL(pageUrl.endsWith('/servicos') ? 'servicos/index.html' : 'index.html', dist), 'utf8');
+        const images = [...imagesXml.matchAll(/<image:loc>([^<]+)<\/image:loc>/g)].map(match => new URL(match[1]));
+        assert.ok(images.length > 0, 'Cada página deve informar as fotos presentes nela');
+        assert.equal(new Set(images.map(image => image.href)).size, images.length);
+        for (const image of images) {
+            assert.equal(image.origin, siteBusiness.siteUrl);
+            assert.ok(html.includes(`src="${image.pathname}"`));
+            assert.ok(!image.pathname.includes('logo-apolinario'));
+            await access(new URL(image.pathname.slice(1), dist));
+        }
+    }
     const notFound = await readFile(new URL('404.html', dist), 'utf8');
     assert.match(notFound, /content="noindex, follow"/);
     assert.ok(!notFound.includes('rel="canonical"'));
