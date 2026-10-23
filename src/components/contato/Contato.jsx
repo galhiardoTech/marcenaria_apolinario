@@ -35,7 +35,9 @@ function Contato() {
                             <i className="bi bi-telephone-fill icon" aria-hidden="true"></i>
                             <div>
                                 <h4>Telefone / WhatsApp</h4>
-                                <p><a href={business.phoneHref}>{business.phone}</a></p>
+                                {business.phones.map((phone) => (
+                                    <p key={phone.telephone}><a href={phone.href}>{phone.display}</a></p>
+                                ))}
                             </div>
                         </div>
                     </div>

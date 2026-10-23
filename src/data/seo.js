@@ -77,7 +77,7 @@ export function getSeoTags(pathname, { googleSiteVerification = '' } = {}) {
                             alternateName: business.alternateNames,
                             url: `${siteUrl}/`,
                             description: 'Marcenaria e móveis planejados sob medida para cozinhas, quartos, salas e banheiros em São Paulo.',
-                            telephone: business.telephone,
+                            telephone: business.phones.map((phone) => phone.telephone),
                             logo: `${siteUrl}${business.logoPath}`,
                             image: { '@id': `${siteUrl}/#imagem-principal` },
                             address: {

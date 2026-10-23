@@ -8,14 +8,14 @@
   "theme_color": "#b18c55",
   "icons": [
     {
-      "src": "/icon-192.png",
-      "sizes": "192x192",
+      "src": "/images/logos/Favicon.png",
+      "sizes": "50x50",
       "type": "image/png",
       "purpose": "any"
     },
     {
-      "src": "/images/logo-apolinario.png",
-      "sizes": "512x512",
+      "src": "/images/logos/logoColorida.png",
+      "sizes": "590x547",
       "type": "image/png",
       "purpose": "any"
     }

@@ -29,7 +29,11 @@ function Footer() {
                         </li>
                         <li>
                             <i className="bi bi-telephone-fill icon" aria-hidden="true"></i>
-                            <a href={business.phoneHref}>{business.phone}</a>
+                            <div>
+                                {business.phones.map((phone) => (
+                                    <div key={phone.telephone}><a href={phone.href}>{phone.display}</a></div>
+                                ))}
+                            </div>
                         </li>
                     </ul>
                     <a href={getServiceWhatsAppUrl()} className="whatsapp-btn" target="_blank" rel="noopener noreferrer">
