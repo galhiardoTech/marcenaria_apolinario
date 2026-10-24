@@ -34,9 +34,9 @@ O build gera HTML completo para `/` e `/servicos`, com hidratação React para m
 
 Títulos, descrições, URLs canônicas, compartilhamento social e dados estruturados estão centralizados em `src/data/seo.js`. O domínio canônico usa HTTPS e `www`.
 
-`public/favicon.png` é a versão quadrada de 96 × 96 pixels da logo existente. `public/images/logo-apolinario.png` é a versão quadrada de 512 × 512 usada no cabeçalho e nos dados estruturados. `public/images/logo-apolinario-cinza.png` preserva a arte usada no rodapé e nas marcas d'água. As artes SVG originais foram preservadas.
+`public/images/logos/favicon/` concentra todos os ícones públicos: SVG, PNG de 96 × 96, ICO, Apple Touch Icon de 180 × 180, ícones PWA de 192 e 512 pixels e o manifesto. `public/images/logo-apolinario.png` é a versão quadrada de 512 × 512 usada no cabeçalho e nos dados estruturados. `public/images/logo-apolinario-cinza.png` preserva a arte usada no rodapé e nas marcas d'água. As artes SVG originais foram preservadas.
 
-Também estão disponíveis `favicon.ico` (32 e 48 pixels), `apple-touch-icon.png` (180 pixels), `icon-192.png` e `site.webmanifest`. A foto principal é identificada por `ImageObject` e `primaryImageOfPage` na página inicial; o catálogo informa `Service` e a navegação de serviços informa `BreadcrumbList`. As mesmas fotos exibidas no HTML entram na extensão de imagens do sitemap, sem incluir logos nem datas de atualização artificiais.
+A página usa os arquivos dessa pasta pelos caminhos `/images/logos/favicon/favicon.svg`, `/images/logos/favicon/favicon-96x96.png`, `/images/logos/favicon/favicon.ico`, `/images/logos/favicon/apple-touch-icon.png` e `/images/logos/favicon/site.webmanifest`. A foto principal é identificada por `ImageObject` e `primaryImageOfPage` na página inicial; o catálogo informa `Service` e a navegação de serviços informa `BreadcrumbList`. As mesmas fotos exibidas no HTML entram na extensão de imagens do sitemap, sem incluir logos nem datas de atualização artificiais.
 
 A imagem de abertura, também usada no cabeçalho de serviços, foi exportada para JPEG de 195 KB, cerca de 90% menor que o PNG original. A home antecipa seu carregamento com preload. A imagem social tem URL estável, dimensões e descrição, e é a mesma exibida na seção Sobre.
 

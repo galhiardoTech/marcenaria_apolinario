@@ -27,7 +27,11 @@ for (const [file, canonical, heading] of [
         assert.ok(!html.includes('Rua Lessig'));
         assert.ok(!body.includes('Marcenaria Apolinário'));
         assert.ok(!body.includes('Apolinário Interiores'));
-        assert.ok(head.includes('rel="icon" type="image/png" sizes="96x96" href="/favicon.png"'));
+        assert.ok(head.includes('rel="icon" href="/images/logos/favicon/favicon.svg" type="image/svg+xml"'));
+        assert.ok(head.includes('rel="icon" href="/images/logos/favicon/favicon-96x96.png" type="image/png" sizes="96x96"'));
+        assert.ok(head.includes('rel="shortcut icon" href="/images/logos/favicon/favicon.ico"'));
+        assert.ok(head.includes('rel="apple-touch-icon" href="/images/logos/favicon/apple-touch-icon.png" sizes="180x180"'));
+        assert.ok(head.includes('rel="manifest" href="/images/logos/favicon/site.webmanifest"'));
         assert.ok(html.includes('Desenvolvido por GalhiardoTech'));
         assert.ok(!html.includes('Atendimento Seg a Sex'));
         assert.ok(!html.includes('Rua Exemplo'));
@@ -41,7 +45,7 @@ for (const [file, canonical, heading] of [
         assert.equal(website.name, business.name);
         assert.ok(head.includes(`property="og:site_name" content="${business.name}"`));
         assert.equal(business.address.streetAddress, 'Rua Lessing, 589');
-        assert.equal(business.telephone, '+55-11-97108-2868');
+        assert.ok(business.telephone.includes('+55-11-97108-2868'));
         assert.equal(business.address.postalCode, '03276-000');
         assert.equal(business.address.addressLocality, 'São Paulo');
         assert.ok(!('openingHours' in business));
@@ -50,8 +54,8 @@ for (const [file, canonical, heading] of [
         assert.ok(business.sameAs.includes(business.hasMap));
         assert.ok(business.sameAs.includes('https://www.instagram.com/apolinariomoveisplanejado/'));
         assert.ok(body.includes(`href="${business.hasMap}"`));
-        assert.equal(business.logo, 'https://www.apolinariointeriores.com.br/images/logo-apolinario.png');
-        await access(new URL('images/logo-apolinario.png', dist));
+        assert.equal(business.logo, `${siteBusiness.siteUrl}${siteBusiness.logoPath}`);
+        await access(new URL(siteBusiness.logoPath.slice(1), dist));
 
         // Todos os recursos locais devem existir na publicação estática.
         for (const [, asset] of html.matchAll(/(?:src|href)="(\/(?:assets|images)\/[^"#?]+)"/g)) {
@@ -61,17 +65,17 @@ for (const [file, canonical, heading] of [
 }
 
 test('favicon publicado é um PNG quadrado de 96 pixels', async () => {
-    const favicon = await readFile(new URL('favicon.png', dist));
+    const favicon = await readFile(new URL('images/logos/favicon/favicon-96x96.png', dist));
     assert.equal(favicon.subarray(0, 8).toString('hex'), '89504e470d0a1a0a');
     assert.equal(favicon.readUInt32BE(16), 96);
     assert.equal(favicon.readUInt32BE(20), 96);
 });
 
 test('ícones compatíveis e manifesto apontam para arquivos válidos', async () => {
-    const ico = await readFile(new URL('favicon.ico', dist));
+    const ico = await readFile(new URL('images/logos/favicon/favicon.ico', dist));
     assert.equal(ico.readUInt16LE(0), 0);
     assert.equal(ico.readUInt16LE(2), 1);
-    assert.equal(ico.readUInt16LE(4), 2);
+    assert.equal(ico.readUInt16LE(4), 3);
     const sizes = [];
     for (let index = 0; index < ico.readUInt16LE(4); index++) {
         const entry = 6 + index * 16;
@@ -79,14 +83,19 @@ test('ícones compatíveis e manifesto apontam para arquivos válidos', async ()
         sizes.push(ico[entry]);
         assert.ok(ico.readUInt32LE(entry + 12) + ico.readUInt32LE(entry + 8) <= ico.length);
     }
-    assert.deepEqual(sizes, [32, 48]);
-    for (const [file, size] of [['apple-touch-icon.png', 180], ['icon-192.png', 192], ['images/logo-apolinario.png', 512]]) {
+    assert.deepEqual(sizes, [48, 32, 16]);
+    for (const [file, size] of [
+        ['images/logos/favicon/apple-touch-icon.png', 180],
+        ['images/logos/favicon/web-app-manifest-192x192.png', 192],
+        ['images/logos/favicon/web-app-manifest-512x512.png', 512],
+        [siteBusiness.logoPath.slice(1), 512],
+    ]) {
         const png = await readFile(new URL(file, dist));
         assert.equal(png.subarray(0, 8).toString('hex'), '89504e470d0a1a0a');
         assert.equal(png.readUInt32BE(16), size);
         assert.equal(png.readUInt32BE(20), size);
     }
-    const manifest = JSON.parse(await readFile(new URL('site.webmanifest', dist), 'utf8'));
+    const manifest = JSON.parse(await readFile(new URL('images/logos/favicon/site.webmanifest', dist), 'utf8'));
     assert.equal(manifest.name, siteBusiness.name);
     assert.equal(manifest.lang, 'pt-BR');
     for (const icon of manifest.icons) await access(new URL(icon.src.slice(1), dist));

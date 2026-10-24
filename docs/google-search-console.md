@@ -4,7 +4,7 @@ Guia para o site **Apolinário Móveis Planejados**, com domínio canônico `htt
 
 ## O que aparece na busca
 
-Na captura enviada, a foto de cozinha já aparece à direita. O símbolo de globo à esquerda ocupa o lugar do **favicon**, o pequeno ícone da marca. São recursos diferentes. Na verificação pública, `favicon.png` respondeu com HTTP 200 e imagem PNG de 96 × 96 pixels; isso não comprova um arquivo quebrado.
+Na captura enviada, a foto de cozinha já aparece à direita. O símbolo de globo à esquerda ocupa o lugar do **favicon**, o pequeno ícone da marca. São recursos diferentes. Na verificação pública, o PNG em `/images/logos/favicon/favicon-96x96.png` deve responder com HTTP 200 e imagem de 96 × 96 pixels; isso não comprova um arquivo quebrado.
 
 Esta revisão prepara ícones em formatos adicionais, identifica a marca e a imagem principal nos metadados e mantém fotos no sitemap. O Google precisa buscar novamente a página inicial e processar os sinais. O favicon e o nome exibidos são escolhidos por sistemas automáticos; podem levar dias ou semanas para atualizar e sua exibição não é garantida. Consulte as orientações oficiais de [favicon](https://developers.google.com/search/docs/appearance/favicon-in-search?hl=pt-br) e [nome do site](https://developers.google.com/search/docs/appearance/site-names?hl=pt-br).
 
@@ -42,8 +42,8 @@ Depois de publicar, confira:
 | `https://apolinariointeriores.com.br/` | Redirecionamento permanente para a versão com `www` |
 | `https://www.apolinariointeriores.com.br/robots.txt` | Texto com permissão de rastreamento e endereço do sitemap |
 | `https://www.apolinariointeriores.com.br/sitemap.xml` | XML das duas páginas e suas imagens |
-| `https://www.apolinariointeriores.com.br/favicon.png` | Ícone da marca acessível |
-| `https://www.apolinariointeriores.com.br/favicon.ico` | Ícone da marca acessível |
+| `https://www.apolinariointeriores.com.br/images/logos/favicon/favicon-96x96.png` | Ícone PNG da marca acessível |
+| `https://www.apolinariointeriores.com.br/images/logos/favicon/favicon.ico` | Ícone ICO da marca acessível |
 | Uma URL inexistente, como `/pagina-inexistente-teste` | HTTP 404 |
 
 Execute a auditoria HTTP após o deploy:

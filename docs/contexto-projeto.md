@@ -66,7 +66,7 @@ As alegações já existentes de mais de 20 anos de experiência e as caracterí
 2. Cabeçalho, título principal, textos de apresentação, rodapé, página de serviços e página 404 passam a usar a mesma marca.
 3. “Rua Lessig” é corrigido para “Rua Lessing”. Endereço e ícone no rodapé abrem o perfil exato no Google Maps.
 4. `LocalBusiness`, `WebSite`, títulos e Open Graph usam o mesmo nome principal. O negócio passa a informar sua logo e o perfil correto no Maps (`hasMap` e `sameAs`).
-5. As logos originais colorida e cinza foram exportadas para PNG quadrado de 512 × 512 pixels; o favicon usa PNG de 96 × 96 e endereço estável `/favicon.png`. A arte cinza deixa de exigir o download de um SVG de aproximadamente 7 MB no site. As artes SVG originais foram preservadas.
+5. As logos originais colorida e cinza foram exportadas para PNG quadrado de 512 × 512 pixels; a pasta `public/images/logos/favicon/` concentra os ícones PNG, ICO, SVG e o manifesto, todos servidos pelo caminho estável `/images/logos/favicon/`. A arte cinza deixa de exigir o download de um SVG de aproximadamente 7 MB no site. As artes SVG originais foram preservadas.
 6. Todos os links de contato obtêm o telefone dos dados centralizados.
 7. Os testes existentes passam a conferir também o nome, o endereço corrigido, os vínculos do Maps, a logo e o favicon publicado.
 8. O README distingue a administração do domínio na Hostinger da hospedagem na Vercel.

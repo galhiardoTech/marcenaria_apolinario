@@ -184,10 +184,16 @@ async function audit(origin) {
     })));
 
     await Promise.all([
-        ...[['/favicon.png', 96], ['/apple-touch-icon.png', 180], [business.logoPath, 512]]
+        ...[
+            ['/images/logos/favicon/favicon-96x96.png', 96],
+            ['/images/logos/favicon/apple-touch-icon.png', 180],
+            ['/images/logos/favicon/web-app-manifest-192x192.png', 192],
+            ['/images/logos/favicon/web-app-manifest-512x512.png', 512],
+            [business.logoPath, 512],
+        ]
             .map(([pathname, dimension]) => check(pathname, async () => validatePng(await request(new URL(pathname, origin)), dimension))),
-        check('/favicon.ico', async () => {
-            const response = await request(new URL('/favicon.ico', origin));
+        check('/images/logos/favicon/favicon.ico', async () => {
+            const response = await request(new URL('/images/logos/favicon/favicon.ico', origin));
             requireStatus(response);
             assert(response.bytes.length >= 6 && response.bytes.subarray(0, 4).toString('hex') === '00000100' && response.bytes.readUInt16LE(4) > 0, 'arquivo não possui cabeçalho ICO válido');
             return `${response.bytes.readUInt16LE(4)} resolução(ões), ${response.bytes.length.toLocaleString('pt-BR')} bytes`;
