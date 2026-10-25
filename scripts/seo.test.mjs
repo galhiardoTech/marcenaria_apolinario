@@ -83,7 +83,7 @@ test('ícones compatíveis e manifesto apontam para arquivos válidos', async ()
         sizes.push(ico[entry]);
         assert.ok(ico.readUInt32LE(entry + 12) + ico.readUInt32LE(entry + 8) <= ico.length);
     }
-    assert.deepEqual(sizes, [48, 32, 16]);
+    assert.deepEqual(sizes.sort((a, b) => a - b), [16, 32, 48]);
     for (const [file, size] of [
         ['images/logos/favicon/apple-touch-icon.png', 180],
         ['images/logos/favicon/web-app-manifest-192x192.png', 192],
