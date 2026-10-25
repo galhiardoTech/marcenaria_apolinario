@@ -23,7 +23,7 @@ function Sobre() {
                 </p>
 
                 <a href="#contato" className="sobre-btn">
-                    CONHEÇA NOSSA HISTÓRIA
+                    SOLICITE UM ORÇAMENTO
                 </a>
             </div>
 

@@ -27,11 +27,13 @@ for (const [file, canonical, heading] of [
         assert.ok(!html.includes('Rua Lessig'));
         assert.ok(!body.includes('Marcenaria Apolinário'));
         assert.ok(!body.includes('Apolinário Interiores'));
-        assert.ok(head.includes('rel="icon" href="/images/logos/favicon/favicon.svg" type="image/svg+xml"'));
-        assert.ok(head.includes('rel="icon" href="/images/logos/favicon/favicon-96x96.png" type="image/png" sizes="96x96"'));
-        assert.ok(head.includes('rel="shortcut icon" href="/images/logos/favicon/favicon.ico"'));
-        assert.ok(head.includes('rel="apple-touch-icon" href="/images/logos/favicon/apple-touch-icon.png" sizes="180x180"'));
-        assert.ok(head.includes('rel="manifest" href="/images/logos/favicon/site.webmanifest"'));
+        assert.ok(head.includes('rel="icon" href="/favicon.ico" type="image/x-icon" sizes="16x16 32x32 48x48"'));
+        assert.ok(head.includes('rel="icon" href="/favicon-96x96.png" type="image/png" sizes="96x96"'));
+        assert.ok(head.includes('rel="apple-touch-icon" href="/apple-touch-icon.png" sizes="180x180"'));
+        assert.ok(head.includes('rel="manifest" href="/site.webmanifest"'));
+        for (const [, asset] of head.matchAll(/<link\b[^>]*\brel="(?:icon|shortcut icon|apple-touch-icon|manifest)"[^>]*\bhref="(\/[^"]+)"/g)) {
+            await access(new URL(asset.slice(1), dist));
+        }
         assert.ok(html.includes('Desenvolvido por GalhiardoTech'));
         assert.ok(!html.includes('Atendimento Seg a Sex'));
         assert.ok(!html.includes('Rua Exemplo'));
@@ -65,14 +67,14 @@ for (const [file, canonical, heading] of [
 }
 
 test('favicon publicado é um PNG quadrado de 96 pixels', async () => {
-    const favicon = await readFile(new URL('images/logos/favicon/favicon-96x96.png', dist));
+    const favicon = await readFile(new URL('favicon-96x96.png', dist));
     assert.equal(favicon.subarray(0, 8).toString('hex'), '89504e470d0a1a0a');
     assert.equal(favicon.readUInt32BE(16), 96);
     assert.equal(favicon.readUInt32BE(20), 96);
 });
 
 test('ícones compatíveis e manifesto apontam para arquivos válidos', async () => {
-    const ico = await readFile(new URL('images/logos/favicon/favicon.ico', dist));
+    const ico = await readFile(new URL('favicon.ico', dist));
     assert.equal(ico.readUInt16LE(0), 0);
     assert.equal(ico.readUInt16LE(2), 1);
     assert.equal(ico.readUInt16LE(4), 3);
@@ -85,9 +87,9 @@ test('ícones compatíveis e manifesto apontam para arquivos válidos', async ()
     }
     assert.deepEqual(sizes.sort((a, b) => a - b), [16, 32, 48]);
     for (const [file, size] of [
-        ['images/logos/favicon/apple-touch-icon.png', 180],
-        ['images/logos/favicon/web-app-manifest-192x192.png', 192],
-        ['images/logos/favicon/web-app-manifest-512x512.png', 512],
+        ['apple-touch-icon.png', 180],
+        ['web-app-manifest-192x192.png', 192],
+        ['web-app-manifest-512x512.png', 512],
         [siteBusiness.logoPath.slice(1), 512],
     ]) {
         const png = await readFile(new URL(file, dist));
@@ -95,10 +97,15 @@ test('ícones compatíveis e manifesto apontam para arquivos válidos', async ()
         assert.equal(png.readUInt32BE(16), size);
         assert.equal(png.readUInt32BE(20), size);
     }
-    const manifest = JSON.parse(await readFile(new URL('images/logos/favicon/site.webmanifest', dist), 'utf8'));
+    const manifest = JSON.parse(await readFile(new URL('site.webmanifest', dist), 'utf8'));
     assert.equal(manifest.name, siteBusiness.name);
     assert.equal(manifest.lang, 'pt-BR');
-    for (const icon of manifest.icons) await access(new URL(icon.src.slice(1), dist));
+    for (const icon of manifest.icons) {
+        const png = await readFile(new URL(icon.src.slice(1), dist));
+        assert.equal(icon.type, 'image/png');
+        assert.equal(png.subarray(0, 8).toString('hex'), '89504e470d0a1a0a');
+        assert.equal(icon.sizes, `${png.readUInt32BE(16)}x${png.readUInt32BE(20)}`);
+    }
 });
 
 test('imagem preferida, catálogo e navegação têm dados estruturados coerentes com o conteúdo', async () => {

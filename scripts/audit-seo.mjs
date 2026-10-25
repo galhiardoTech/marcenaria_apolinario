@@ -93,6 +93,9 @@ function validatePage(response, pathname) {
     expect(titles.length === 1 && textContent(titles[0][1]) === expectedTitle, 'título ausente, duplicado ou diferente do código atual');
     const canonicals = tags(head, 'link').filter(tag => (tag.rel ?? '').toLowerCase().split(/\s+/).includes('canonical'));
     expect(canonicals.length === 1 && canonicals[0].href === new URL(pathname, officialUrl).href, 'canonical ausente, duplicado ou incorreto');
+    const links = tags(head, 'link');
+    expect(links.some(tag => tag.rel === 'icon' && tag.href === '/favicon-96x96.png' && tag.type === 'image/png' && tag.sizes === '96x96'), 'favicon PNG de 96 pixels ausente no head');
+    expect(links.some(tag => tag.rel === 'manifest' && tag.href === '/site.webmanifest'), 'manifesto ausente ou em caminho desatualizado');
     const directives = robotsTags(head);
     expect(directives.some(tag => /(?:^|[\s,])index(?:$|[\s,])/i.test(tag.content ?? '')), 'meta robots deve permitir indexação');
     expect(!directives.some(tag => /\b(?:noindex|none)\b/i.test(tag.content ?? '')), 'meta robots bloqueia indexação');
@@ -185,18 +188,33 @@ async function audit(origin) {
 
     await Promise.all([
         ...[
-            ['/images/logos/favicon/favicon-96x96.png', 96],
-            ['/images/logos/favicon/apple-touch-icon.png', 180],
-            ['/images/logos/favicon/web-app-manifest-192x192.png', 192],
-            ['/images/logos/favicon/web-app-manifest-512x512.png', 512],
+            ['/favicon-96x96.png', 96],
+            ['/apple-touch-icon.png', 180],
+            ['/web-app-manifest-192x192.png', 192],
+            ['/web-app-manifest-512x512.png', 512],
             [business.logoPath, 512],
         ]
             .map(([pathname, dimension]) => check(pathname, async () => validatePng(await request(new URL(pathname, origin)), dimension))),
-        check('/images/logos/favicon/favicon.ico', async () => {
-            const response = await request(new URL('/images/logos/favicon/favicon.ico', origin));
+        check('/favicon.ico', async () => {
+            const response = await request(new URL('/favicon.ico', origin));
             requireStatus(response);
             assert(response.bytes.length >= 6 && response.bytes.subarray(0, 4).toString('hex') === '00000100' && response.bytes.readUInt16LE(4) > 0, 'arquivo não possui cabeçalho ICO válido');
             return `${response.bytes.readUInt16LE(4)} resolução(ões), ${response.bytes.length.toLocaleString('pt-BR')} bytes`;
+        }),
+        check('/site.webmanifest', async () => {
+            const response = await request(new URL('/site.webmanifest', origin));
+            requireStatus(response);
+            assert(contentType(response) === 'application/manifest+json', 'Content-Type deve ser application/manifest+json');
+            const manifest = JSON.parse(response.text());
+            assert(manifest.name === business.name && manifest.lang === 'pt-BR', 'manifesto deve identificar a empresa e o idioma corretos');
+            assert(Array.isArray(manifest.icons) && manifest.icons.length > 0, 'manifesto sem ícones');
+            await Promise.all(manifest.icons.map(async icon => {
+                assert(typeof icon.src === 'string' && icon.src.startsWith('/') && !icon.src.startsWith('//'), 'ícone deve ter caminho público local');
+                const size = Number(icon.sizes?.split('x')[0]);
+                assert(size > 0 && icon.sizes === `${size}x${size}` && icon.type === 'image/png', 'ícone deve declarar formato PNG e dimensões quadradas');
+                validatePng(await request(new URL(icon.src, origin)), size);
+            }));
+            return `${manifest.icons.length} ícones declarados existem e têm formato e tamanho corretos`;
         }),
         check(business.socialImagePath, async () => {
             const response = await request(new URL(business.socialImagePath, origin));
