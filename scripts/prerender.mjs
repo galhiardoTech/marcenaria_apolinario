@@ -1,4 +1,4 @@
-import { access, mkdir, readFile, writeFile } from 'node:fs/promises';
+import { access, copyFile, mkdir, readFile, writeFile } from 'node:fs/promises';
 import { resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { loadEnv } from 'vite';
@@ -12,6 +12,17 @@ const env = loadEnv('production', fileURLToPath(new URL('../', import.meta.url))
 const sitemapPages = [];
 const escapeXml = value => value.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;').replace(/'/g, '&apos;');
 const brandImages = new Set([business.logoPath, business.watermarkLogoPath]);
+
+// Preserve as URLs publicadas antes da mudança dos ícones para a raiz.
+// Rastreadores podem continuar buscando esses endereços a partir de seu cache.
+const legacyIconsDir = resolve(outputDir, 'images/logos/favicon');
+await mkdir(legacyIconsDir, { recursive: true });
+for (const file of [
+    'favicon.ico', 'favicon-96x96.png', 'favicon.svg', 'apple-touch-icon.png',
+    'web-app-manifest-192x192.png', 'web-app-manifest-512x512.png', 'site.webmanifest',
+]) {
+    await copyFile(resolve(outputDir, file), resolve(legacyIconsDir, file));
+}
 
 for (const pathname of [...indexablePaths, '/404']) {
     const head = renderSeoHead(pathname, { googleSiteVerification: env.VITE_GOOGLE_SITE_VERIFICATION });

@@ -73,6 +73,17 @@ test('favicon publicado é um PNG quadrado de 96 pixels', async () => {
     assert.equal(favicon.readUInt32BE(20), 96);
 });
 
+test('endereços antigos dos ícones continuam disponíveis com os mesmos arquivos', async () => {
+    for (const file of [
+        'favicon.ico', 'favicon-96x96.png', 'favicon.svg', 'apple-touch-icon.png',
+        'web-app-manifest-192x192.png', 'web-app-manifest-512x512.png', 'site.webmanifest',
+    ]) {
+        const current = await readFile(new URL(file, dist));
+        const legacy = await readFile(new URL(`images/logos/favicon/${file}`, dist));
+        assert.deepEqual(legacy, current, `O endereço antigo de ${file} deve preservar o recurso`);
+    }
+});
+
 test('ícones compatíveis e manifesto apontam para arquivos válidos', async () => {
     const ico = await readFile(new URL('favicon.ico', dist));
     assert.equal(ico.readUInt16LE(0), 0);

@@ -201,6 +201,16 @@ async function audit(origin) {
             assert(response.bytes.length >= 6 && response.bytes.subarray(0, 4).toString('hex') === '00000100' && response.bytes.readUInt16LE(4) > 0, 'arquivo não possui cabeçalho ICO válido');
             return `${response.bytes.readUInt16LE(4)} resolução(ões), ${response.bytes.length.toLocaleString('pt-BR')} bytes`;
         }),
+        check('Endereços antigos dos favicons', async () => {
+            for (const file of ['favicon.ico', 'favicon-96x96.png']) {
+                const current = await request(new URL(`/${file}`, origin));
+                const legacy = await request(new URL(`/images/logos/favicon/${file}`, origin));
+                requireStatus(current);
+                requireStatus(legacy);
+                assert(legacy.bytes.equals(current.bytes), `O endereço antigo de ${file} deve servir o mesmo ícone`);
+            }
+            return 'PNG e ICO antigos respondem 200 com o mesmo conteúdo';
+        }),
         check('/site.webmanifest', async () => {
             const response = await request(new URL('/site.webmanifest', origin));
             requireStatus(response);
